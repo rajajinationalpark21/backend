@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: jungle-safari-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    region: oregon
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: MONGODB_URI
+        sync: false
+      - key: CLIENT_ORIGINS
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: CLOUDINARY_FOLDER
+        value: jungle-safari
+      - key: ADMIN_NAME
+        value: Administrator
+      - key: ADMIN_EMAIL
+        value: admin@junglesafari.com
+      - key: ADMIN_PASSWORD
+        sync: false
