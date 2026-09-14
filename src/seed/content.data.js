@@ -118,13 +118,13 @@ export const seedContent = {
   },
 
   settings: {
-    siteName: "Jungle Safari National Park",
+    siteName: "Rajaji National Park",
     // Left blank deliberately: real phone numbers and addresses belong to the
     // owner, and inventing them risks publishing someone else's details.
     contact: {
       name: "",
       phone: "",
-      email: "info@junglesafari.com",
+      email: "wildbrookrajaji@gmail.com",
       address: "",
       mapUrl: "",
     },
@@ -136,7 +136,7 @@ export const seedContent = {
       linkedin: "",
     },
     footer: {
-      copyright: `© ${new Date().getFullYear()} Jungle Safari National Park. All rights reserved.`,
+      copyright: `© ${new Date().getFullYear()} Rajaji Tiger Reserve & National Park. All rights reserved.`,
       developedBy: "Vansh Arora",
     },
   },
