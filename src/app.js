@@ -20,7 +20,7 @@ function buildCorsOptions() {
     credentials: true,
     origin(origin, callback) {
       // Same-origin and non-browser clients send no Origin header.
-      if (!origin || corsOrigins.includes(origin)) return callback(null, true);
+      if (!origin || corsOrigins.includes(origin) || corsOrigins.includes("*")) return callback(null, true);
       return callback(new AppError(`Origin "${origin}" is not allowed by CORS`, 403));
     },
   };
