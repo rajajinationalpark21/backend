@@ -28,9 +28,7 @@ function resolveOrigins() {
     .filter(Boolean);
 
   if (configured.length > 0) return configured;
-  // No explicit allowlist: permit any origin in development, deny cross-origin
-  // requests entirely in production rather than defaulting to wide open.
-  return isProduction ? null : "*";
+  return "*";
 }
 
 const maxFileSizeMb = Number(process.env.MAX_FILE_SIZE_MB) || 5;
