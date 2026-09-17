@@ -8,6 +8,7 @@ import contentRoutes from "./content.routes.js";
 import safariRoutes from "./safari.routes.js";
 import settingsRoutes from "./settings.routes.js";
 import uploadRoutes from "./upload.routes.js";
+import feedbackRoutes from "./feedback.routes.js";
 
 const DB_STATES = ["disconnected", "connected", "connecting", "disconnecting"];
 
@@ -31,3 +32,4 @@ apiRouter.use("/content", contentRoutes);
 apiRouter.use("/safari", safariRoutes);
 apiRouter.use("/settings", settingsRoutes);
 apiRouter.use("/uploads", uploadRoutes);
+apiRouter.use("/feedback", feedbackRoutes);

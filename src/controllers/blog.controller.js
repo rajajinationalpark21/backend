@@ -1,28 +1,69 @@
+import mongoose from "mongoose";
 import { Blog } from "../models/Blog.js";
 import { FOLDERS, destroyImage, uploadImage } from "../config/cloudinary.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { getIdFromAliases, getObjectId, getString } from "../utils/validation.js";
+import { getIdFromAliases, getString } from "../utils/validation.js";
 
 const BLOG_ID_ALIASES = ["blogId", "id", "_id"];
 
+export function slugify(text) {
+  if (!text) return "";
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export const listBlogs = asyncHandler(async (req, res) => {
-  const blogs = await Blog.find().sort({ createdAt: -1 }).lean();
+  const rawBlogs = await Blog.find().sort({ createdAt: -1 }).lean();
+  const blogs = rawBlogs.map((b) => ({
+    ...b,
+    slug: b.slug || slugify(b.title),
+  }));
   res.json({ success: true, count: blogs.length, blogs });
 });
 
 export const getBlog = asyncHandler(async (req, res) => {
-  const id = getObjectId(req.params, "id");
-  const blog = await Blog.findById(id).lean();
+  const { id } = req.params;
+  if (!id) throw new AppError("Blog identifier is required", 400);
+
+  let blog = null;
+  if (mongoose.isValidObjectId(id)) {
+    blog = await Blog.findById(id).lean();
+  }
+
+  if (!blog) {
+    blog = await Blog.findOne({ slug: id.toLowerCase() }).lean();
+  }
+
+  if (!blog) {
+    const targetSlug = slugify(id);
+    const allBlogs = await Blog.find().lean();
+    blog = allBlogs.find(
+      (b) => b.slug === targetSlug || slugify(b.title) === targetSlug
+    );
+  }
 
   if (!blog) throw new AppError("Blog post not found", 404);
 
-  res.json({ success: true, blog });
+  res.json({
+    success: true,
+    blog: {
+      ...blog,
+      slug: blog.slug || slugify(blog.title),
+    },
+  });
 });
 
 export const createBlog = asyncHandler(async (req, res) => {
+  const title = getString(req.body, "title", { required: true, max: 200 });
   const fields = {
-    title: getString(req.body, "title", { required: true, max: 200 }),
+    title,
+    slug: req.body.slug ? slugify(req.body.slug) : slugify(title),
     category: getString(req.body, "category", { max: 60, fallback: "Uncategorized" }),
     summary: getString(req.body, "summary", { max: 500 }),
     content: getString(req.body, "content", { required: true, max: 200_000 }),
@@ -47,6 +88,12 @@ export const updateBlog = asyncHandler(async (req, res) => {
 
   if (req.body.title !== undefined) {
     blog.title = getString(req.body, "title", { required: true, max: 200 });
+    if (!blog.slug || req.body.slug) {
+      blog.slug = slugify(req.body.slug || blog.title);
+    }
+  }
+  if (req.body.slug !== undefined) {
+    blog.slug = slugify(req.body.slug);
   }
   if (req.body.category !== undefined) {
     blog.category = getString(req.body, "category", { max: 60, fallback: "Uncategorized" });

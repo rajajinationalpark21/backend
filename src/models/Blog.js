@@ -10,6 +10,7 @@ const blogSchema = new Schema(
     content: { type: String, required: [true, "content is required"] },
     image: { type: String, trim: true, default: "" },
     imagePublicId: { type: String, trim: true, default: "" },
+    slug: { type: String, trim: true, lowercase: true, index: true },
     published: { type: Boolean, default: true },
   },
   { timestamps: true }
@@ -17,5 +18,6 @@ const blogSchema = new Schema(
 
 blogSchema.index({ createdAt: -1 });
 blogSchema.index({ category: 1 });
+blogSchema.index({ slug: 1 });
 
 export const Blog = mongoose.model("Blog", blogSchema);
