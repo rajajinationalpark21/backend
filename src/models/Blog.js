@@ -8,6 +8,8 @@ const blogSchema = new Schema(
     category: { type: String, trim: true, maxlength: 60, default: "Uncategorized" },
     summary: { type: String, trim: true, maxlength: 500, default: "" },
     content: { type: String, required: [true, "content is required"] },
+    quote: { type: String, trim: true, default: "" },
+    quoteAuthor: { type: String, trim: true, default: "" },
     image: { type: String, trim: true, default: "" },
     imagePublicId: { type: String, trim: true, default: "" },
     slug: { type: String, trim: true, lowercase: true, index: true },
@@ -18,6 +20,5 @@ const blogSchema = new Schema(
 
 blogSchema.index({ createdAt: -1 });
 blogSchema.index({ category: 1 });
-blogSchema.index({ slug: 1 });
 
 export const Blog = mongoose.model("Blog", blogSchema);

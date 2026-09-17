@@ -67,6 +67,8 @@ export const createBlog = asyncHandler(async (req, res) => {
     category: getString(req.body, "category", { max: 60, fallback: "Uncategorized" }),
     summary: getString(req.body, "summary", { max: 500 }),
     content: getString(req.body, "content", { required: true, max: 200_000 }),
+    quote: getString(req.body, "quote", { max: 1000 }),
+    quoteAuthor: getString(req.body, "quoteAuthor", { max: 150 }),
   };
 
   if (req.file) {
@@ -103,6 +105,12 @@ export const updateBlog = asyncHandler(async (req, res) => {
   }
   if (req.body.content !== undefined) {
     blog.content = getString(req.body, "content", { required: true, max: 200_000 });
+  }
+  if (req.body.quote !== undefined) {
+    blog.quote = getString(req.body, "quote", { max: 1000 });
+  }
+  if (req.body.quoteAuthor !== undefined) {
+    blog.quoteAuthor = getString(req.body, "quoteAuthor", { max: 150 });
   }
 
   if (req.file) {

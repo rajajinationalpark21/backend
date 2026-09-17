@@ -50,12 +50,12 @@ const feedbackSchema = new Schema(
     },
     isVerified: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     status: {
       type: String,
       enum: ["approved", "pending"],
-      default: "approved",
+      default: "pending",
     },
   },
   { timestamps: true }

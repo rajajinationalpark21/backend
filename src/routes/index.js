@@ -14,13 +14,32 @@ const DB_STATES = ["disconnected", "connected", "connecting", "disconnecting"];
 
 export const apiRouter = Router();
 
-apiRouter.get("/health", (req, res) => {
-  const state = DB_STATES[mongoose.connection.readyState] ?? "unknown";
-  res.json({
-    success: state === "connected",
-    status: state === "connected" ? "ok" : "degraded",
-    database: state,
+apiRouter.get("/health", async (req, res) => {
+  let dbStatus = "disconnected";
+  let dbLatencyMs = null;
+
+  if (mongoose.connection.readyState === 1 && mongoose.connection.db) {
+    try {
+      const start = Date.now();
+      await mongoose.connection.db.command({ ping: 1 });
+      dbLatencyMs = Date.now() - start;
+      dbStatus = "connected";
+    } catch (err) {
+      dbStatus = "error";
+    }
+  } else {
+    dbStatus = DB_STATES[mongoose.connection.readyState] ?? "unknown";
+  }
+
+  const isHealthy = dbStatus === "connected";
+
+  res.status(isHealthy ? 200 : 503).json({
+    success: isHealthy,
+    status: isHealthy ? "ok" : "degraded",
+    database: dbStatus,
+    dbLatencyMs,
     uptime: Math.round(process.uptime()),
+    timestamp: new Date().toISOString(),
   });
 });
 

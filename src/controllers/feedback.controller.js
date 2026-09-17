@@ -25,13 +25,13 @@ export const submitFeedback = asyncHandler(async (req, res) => {
     zone,
     location,
     visitDate,
-    status: "approved",
-    isVerified: true,
+    status: "pending",
+    isVerified: false,
   });
 
   res.status(201).json({
     success: true,
-    message: "Thank you for sharing your experience! Your feedback has been published.",
+    message: "Thank you for sharing your experience! Your review will appear after moderator approval.",
     feedback,
   });
 });
@@ -50,6 +50,64 @@ export const listFeedback = asyncHandler(async (req, res) => {
   });
 });
 
+/** Admin endpoint to retrieve all feedback items (both approved and pending) */
+export const adminListFeedback = asyncHandler(async (req, res) => {
+  const query = {};
+  if (req.query.status && ["approved", "pending"].includes(req.query.status)) {
+    query.status = req.query.status;
+  }
+  if (req.query.zone && req.query.zone !== "All") {
+    query.zone = req.query.zone;
+  }
+  if (req.query.rating) {
+    const ratingNum = Number(req.query.rating);
+    if (!isNaN(ratingNum)) query.rating = ratingNum;
+  }
+
+  const feedbacks = await Feedback.find(query)
+    .sort({ createdAt: -1 })
+    .lean();
+
+  res.json({
+    success: true,
+    count: feedbacks.length,
+    feedbacks,
+  });
+});
+
+/** Admin endpoint to update feedback status (approved/pending) or verification flag */
+export const updateFeedback = asyncHandler(async (req, res) => {
+  const id = getIdFromAliases(req.body, FEEDBACK_ID_ALIASES, "feedbackId");
+  
+  const updates = {};
+  if (req.body.status && ["approved", "pending"].includes(req.body.status)) {
+    updates.status = req.body.status;
+  }
+  if (typeof req.body.isVerified === "boolean") {
+    updates.isVerified = req.body.isVerified;
+  }
+  if (req.body.name) updates.name = String(req.body.name).trim();
+  if (req.body.comment) updates.comment = String(req.body.comment).trim();
+  if (req.body.zone) updates.zone = String(req.body.zone).trim();
+  if (req.body.rating) {
+    const r = Number(req.body.rating);
+    if (!isNaN(r) && r >= 1 && r <= 5) updates.rating = r;
+  }
+
+  const feedback = await Feedback.findByIdAndUpdate(id, updates, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!feedback) throw new AppError("Feedback not found", 404);
+
+  res.json({
+    success: true,
+    message: "Feedback updated successfully",
+    feedback,
+  });
+});
+
 /** Admin endpoint to delete feedback */
 export const deleteFeedback = asyncHandler(async (req, res) => {
   const id = getIdFromAliases(req.body, FEEDBACK_ID_ALIASES, "feedbackId");
@@ -59,3 +117,4 @@ export const deleteFeedback = asyncHandler(async (req, res) => {
 
   res.json({ success: true, message: "Feedback deleted successfully" });
 });
+
