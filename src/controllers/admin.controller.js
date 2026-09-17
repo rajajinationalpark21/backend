@@ -64,6 +64,51 @@ export const updateProfile = asyncHandler(async (req, res) => {
   res.json({ success: true, message: "Profile updated", admin: admin.toPublicJSON() });
 });
 
+/** List all admin users (no password hashes). */
+export const listUsers = asyncHandler(async (req, res) => {
+  const admins = await Admin.find().sort({ createdAt: -1 }).lean();
+  const safe = admins.map(({ passwordHash, ...rest }) => rest);
+  res.json({ success: true, count: safe.length, admins: safe });
+});
+
+/** Create a new admin user. */
+export const createUser = asyncHandler(async (req, res) => {
+  const name = getString(req.body, "name", { required: true, max: 120 });
+  const email = getEmail(req.body, "email");
+  const password = getString(req.body, "password", { required: true, max: 200 });
+
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    throw new AppError(`Password must be at least ${MIN_PASSWORD_LENGTH} characters`, 400);
+  }
+
+  const exists = await Admin.findOne({ email });
+  if (exists) {
+    throw new AppError("An account with this email already exists", 409);
+  }
+
+  const passwordHash = await bcrypt.hash(password, 10);
+  const admin = await Admin.create({ name, email, passwordHash });
+
+  res.status(201).json({
+    success: true,
+    message: "Admin user created",
+    admin: admin.toPublicJSON(),
+  });
+});
+
+/** Delete an admin user. Cannot delete yourself. */
+export const deleteUser = asyncHandler(async (req, res) => {
+  const id = getString(req.body, "userId", { required: true });
+  if (id === req.admin._id.toString()) {
+    throw new AppError("You cannot delete your own account", 400);
+  }
+
+  const admin = await Admin.findByIdAndDelete(id);
+  if (!admin) throw new AppError("Admin user not found", 404);
+
+  res.json({ success: true, message: "Admin user deleted" });
+});
+
 export const changePassword = asyncHandler(async (req, res) => {
   const currentPassword = getString(req.body, "currentPassword", { required: true, max: 200 });
   const newPassword = getString(req.body, "newPassword", { required: true, max: 200 });
