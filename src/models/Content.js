@@ -77,9 +77,21 @@ const aboutSectionSchema = new Schema(
 
 const zoneItemSchema = new Schema(
   {
+    slug: text(100),
     name: text(160),
-    description: text(1000),
-    timings: text(160),
+    tag: text(200),
+    entryGate: text(160),
+    gypsyCost: text(160),
+    duration: text(100),
+    routeKm: text(100),
+    openSeason: text(200),
+    timings: text(500),
+    description: text(5000),
+    landscape: text(2000),
+    highlights: { type: [text(300)], default: [] },
+    wildlife: { type: [text(300)], default: [] },
+    seoTitle: text(200),
+    metaDescription: text(500),
   },
   { _id: false }
 );
@@ -111,9 +123,13 @@ const settingsSectionSchema = new Schema(
       {
         name: text(160),
         phone: text(40),
+        secondaryPhone: text(40),
+        tertiaryPhone: text(40),
+        whatsapp: text(40),
         email: text(160),
         address: text(500),
         mapUrl: text(600),
+        drChaturbhuj: text(100),
       },
       { _id: false }
     ),
@@ -129,6 +145,10 @@ const settingsSectionSchema = new Schema(
     ),
     footer: new Schema(
       {
+        brandTitle: text(200),
+        brandDesc: text(1000),
+        address: text(500),
+        phone: text(40),
         copyright: text(300),
         developedBy: text(160),
       },
@@ -315,6 +335,27 @@ const guideFeeSchema = new Schema(
   { _id: false }
 );
 
+const elephantRideSchema = new Schema(
+  {
+    availability: text(200),
+    indianRate: text(100),
+    foreignerRate: text(100),
+    note: text(500),
+  },
+  { _id: false }
+);
+
+const filmFeeSchema = new Schema(
+  {
+    type: text(200),
+    indian: text(100),
+    foreigner: text(100),
+    security: text(200),
+    note: text(300),
+  },
+  { _id: false }
+);
+
 const ticketsSectionSchema = new Schema(
   {
     timings: new Schema(
@@ -328,6 +369,9 @@ const ticketsSectionSchema = new Schema(
     entranceFees: { type: [entranceFeeSchema], default: [] },
     gypsyRates: { type: [gypsyRateSchema], default: [] },
     guideFees: { type: [guideFeeSchema], default: [] },
+    elephantRide: { type: elephantRideSchema, default: () => ({}) },
+    filmingFees: { type: [filmFeeSchema], default: [] },
+    cancellationPolicy: { type: [text(1000)], default: [] },
     importantNotes: { type: [text(500)], default: [] },
   },
   { _id: false }
@@ -481,6 +525,94 @@ const ecoTourismSectionSchema = new Schema(
   { _id: false }
 );
 
+// ── Reptiles Section ───────────────────────────────────────────────────────────
+const reptileDetailSchema = new Schema(
+  {
+    name: text(200),
+    scientific: text(200),
+    status: text(200),
+    habitat: text(500),
+    description: text(2000),
+  },
+  { _id: false }
+);
+
+const reptilesSectionSchema = new Schema(
+  {
+    overview: text(3000),
+    species: { type: [reptileDetailSchema], default: [] },
+    seoTitle: text(200),
+    metaDescription: text(500),
+  },
+  { _id: false }
+);
+
+// ── FAQs Section ───────────────────────────────────────────────────────────────
+const faqItemSchema = new Schema(
+  {
+    q: text(500),
+    a: text(3000),
+    category: text(100),
+  },
+  { _id: false }
+);
+
+const faqsSectionSchema = new Schema(
+  {
+    overview: text(1000),
+    items: { type: [faqItemSchema], default: [] },
+  },
+  { _id: false }
+);
+
+// ── Activities Section ─────────────────────────────────────────────────────────
+const activityDetailSchema = new Schema(
+  {
+    title: text(200),
+    tagline: text(300),
+    slug: text(100),
+    desc: text(2000),
+    image: text(600),
+    cta: text(100),
+  },
+  { _id: false }
+);
+
+const activitiesSectionSchema = new Schema(
+  {
+    title: text(200),
+    subtitle: text(1000),
+    items: { type: [activityDetailSchema], default: [] },
+  },
+  { _id: false }
+);
+
+// ── Rafting Section ────────────────────────────────────────────────────────────
+const rapidStretchSchema = new Schema(
+  {
+    name: text(200),
+    distance: text(100),
+    grade: text(100),
+    duration: text(100),
+    level: text(100),
+    price: text(100),
+    desc: text(2000),
+    rapids: text(500),
+  },
+  { _id: false }
+);
+
+const raftingSectionSchema = new Schema(
+  {
+    title: text(200),
+    subtitle: text(1000),
+    overview: text(3000),
+    stretches: { type: [rapidStretchSchema], default: [] },
+    safetyGuidelines: { type: [text(500)], default: [] },
+  },
+  { _id: false }
+);
+
 // ── Main Content Schema ────────────────────────────────────────────────────────
 const contentSchema = new Schema(
   {
@@ -492,21 +624,26 @@ const contentSchema = new Schema(
     fauna: { type: faunaSectionSchema, default: () => ({}) },
     flora: { type: floraSectionSchema, default: () => ({}) },
     butterflies: { type: butterfliesSectionSchema, default: () => ({}) },
+    reptiles: { type: reptilesSectionSchema, default: () => ({}) },
     parkRules: { type: parkRulesSectionSchema, default: () => ({}) },
     tickets: { type: ticketsSectionSchema, default: () => ({}) },
     howToReach: { type: howToReachSectionSchema, default: () => ({}) },
     stay: { type: staySectionSchema, default: () => ({}) },
     birdingAreas: { type: birdingAreasSectionSchema, default: () => ({}) },
     ecoTourism: { type: ecoTourismSectionSchema, default: () => ({}) },
+    faqs: { type: faqsSectionSchema, default: () => ({}) },
+    activities: { type: activitiesSectionSchema, default: () => ({}) },
+    rafting: { type: raftingSectionSchema, default: () => ({}) },
   },
   { timestamps: true }
 );
 
 export const CONTENT_SECTIONS = [
   "home", "about", "safari", "settings",
-  "birds", "fauna", "flora", "butterflies",
+  "birds", "fauna", "flora", "butterflies", "reptiles",
   "parkRules", "tickets", "howToReach", "stay",
   "birdingAreas", "ecoTourism",
+  "faqs", "activities", "rafting",
 ];
 
 export const Content = mongoose.model("Content", contentSchema);

@@ -46,7 +46,9 @@ const IMAGE_FIELD_READERS = {
  * failing with an opaque cast error, tell the caller exactly how to upload.
  */
 function assertImagesAreUrls(section, payload) {
-  for (const value of IMAGE_FIELD_READERS[section](payload)) {
+  const reader = IMAGE_FIELD_READERS[section];
+  if (!reader) return;
+  for (const value of reader(payload)) {
     if (value != null && value !== "" && typeof value !== "string") {
       throw new AppError(
         'Image fields must be URL strings. Send the file as multipart/form-data under "heroBanner", ' +
