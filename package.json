@@ -8,7 +8,8 @@
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
     "seed": "node src/seed/seed.js",
-    "seed:force": "node src/seed/seed.js --force"
+    "seed:force": "node src/seed/seed.js --force",
+    "seed:website-images": "node src/seed/seedWebsiteImages.js"
   },
   "engines": {
     "node": ">=18.17"
@@ -24,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "morgan": "^1.10.0",
-    "multer": "^2.3.0"
+    "multer": "^2.3.0",
+    "sharp": "^0.34.5"
   }
 }

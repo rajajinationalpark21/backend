@@ -92,6 +92,8 @@ const zoneItemSchema = new Schema(
     wildlife: { type: [text(300)], default: [] },
     seoTitle: text(200),
     metaDescription: text(500),
+    heroImage: text(600),
+    heroImagePublicId: text(300),
   },
   { _id: false }
 );

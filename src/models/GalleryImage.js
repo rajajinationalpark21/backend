@@ -12,6 +12,9 @@ const galleryImageSchema = new Schema(
     width: { type: Number },
     height: { type: Number },
     bytes: { type: Number },
+    // Present only for the supplied website-image import. It makes the import
+    // idempotent without affecting images uploaded later from the admin UI.
+    sourceKey: { type: String, trim: true, unique: true, sparse: true },
   },
   { timestamps: true }
 );

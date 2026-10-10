@@ -31,7 +31,9 @@ function resolveOrigins() {
   return "*";
 }
 
-const maxFileSizeMb = Number(process.env.MAX_FILE_SIZE_MB) || 5;
+// Uploads are optimized server-side before storage, so accept modern camera
+// originals rather than forcing the content team to compress them manually.
+const maxFileSizeMb = Number(process.env.MAX_FILE_SIZE_MB) || 50;
 
 export const env = {
   nodeEnv: process.env.NODE_ENV || "development",
