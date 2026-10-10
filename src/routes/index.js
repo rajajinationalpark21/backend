@@ -52,5 +52,6 @@ apiRouter.use("/content", contentRoutes);
 apiRouter.use("/safari", safariRoutes);
 apiRouter.use("/settings", settingsRoutes);
 apiRouter.use("/uploads", uploadRoutes);
+apiRouter.use("/upload", uploadRoutes);
 apiRouter.use("/feedback", feedbackRoutes);
 apiRouter.use("/booking", bookingRoutes);

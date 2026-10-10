@@ -6,5 +6,6 @@ import { singleImage } from "../middleware/upload.js";
 const router = Router();
 
 router.post("/image", requireAdmin, singleImage, uploadSingleImage);
+router.post("/", requireAdmin, singleImage, uploadSingleImage);
 
 export default router;
