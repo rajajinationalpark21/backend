@@ -37,7 +37,10 @@ const IMAGE_FIELD_READERS = {
   home: (payload) => [payload.heroBanner, payload.aboutImage],
   about: (payload) =>
     Array.isArray(payload.activities) ? payload.activities.map((activity) => activity?.image) : [],
-  safari: () => [],
+  safari: (payload) => [
+    payload.heroBanner,
+    ...(Array.isArray(payload.zones) ? payload.zones.map((z) => z?.heroImage) : []),
+  ],
   settings: () => [],
 };
 

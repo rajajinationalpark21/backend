@@ -115,6 +115,8 @@ const safariSectionSchema = new Schema(
   {
     title: text(200),
     subtitle: text(300),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     zones: { type: [zoneItemSchema], default: [] },
     animals: { type: [{ type: String, trim: true, maxlength: 120 }], default: [] },
     rules: { type: [{ type: String, trim: true, maxlength: 500 }], default: [] },
