@@ -38,12 +38,33 @@ export const uploadImages = asyncHandler(async (req, res) => {
 });
 
 export const deleteImage = asyncHandler(async (req, res) => {
-  const id = getIdFromAliases(req.body, IMAGE_ID_ALIASES, "imageId");
-  const image = await GalleryImage.findByIdAndDelete(id);
+  const rawIds = req.body?.imageIds || req.body?.ids || req.body?.imageId || req.body?.id || req.body?._id;
+  const ids = Array.isArray(rawIds) ? rawIds : rawIds ? [rawIds] : [];
 
-  if (!image) throw new AppError("Image not found", 404);
+  if (ids.length === 0) {
+    throw new AppError("No image ID specified", 400);
+  }
 
-  await destroyImage(image.publicId);
+  const images = await GalleryImage.find({ _id: { $in: ids } });
+  await Promise.allSettled(
+    images.map((img) => (img.publicId ? destroyImage(img.publicId) : Promise.resolve()))
+  );
 
-  res.json({ success: true, message: "Image deleted" });
+  await GalleryImage.deleteMany({ _id: { $in: ids } });
+
+  res.json({ success: true, message: `${ids.length} photo(s) deleted successfully` });
+});
+
+export const clearAllImages = asyncHandler(async (req, res) => {
+  const images = await GalleryImage.find().lean();
+  await Promise.allSettled(
+    images.map((img) => (img.publicId ? destroyImage(img.publicId) : Promise.resolve()))
+  );
+
+  const result = await GalleryImage.deleteMany({});
+  res.json({
+    success: true,
+    message: `All gallery photos cleared (${result.deletedCount} removed)`,
+    deletedCount: result.deletedCount,
+  });
 });
