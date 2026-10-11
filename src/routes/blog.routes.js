@@ -15,6 +15,9 @@ router.get("/get", listBlogs);
 router.get("/detail/:id", getBlog);
 router.post("/add", requireAdmin, blogImage, createBlog);
 router.patch("/update", requireAdmin, blogImage, updateBlog);
+router.delete("/delete/:id", requireAdmin, deleteBlog);
+router.delete("/:id", requireAdmin, deleteBlog);
 router.delete("/delete", requireAdmin, deleteBlog);
+router.delete("/", requireAdmin, deleteBlog);
 
 export default router;

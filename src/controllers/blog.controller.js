@@ -129,7 +129,8 @@ export const updateBlog = asyncHandler(async (req, res) => {
 });
 
 export const deleteBlog = asyncHandler(async (req, res) => {
-  const id = getIdFromAliases(req.body, BLOG_ID_ALIASES, "blogId");
+  const source = { ...req.query, ...req.params, ...req.body };
+  const id = getIdFromAliases(source, BLOG_ID_ALIASES, "blogId");
   const blog = await Blog.findByIdAndDelete(id);
 
   if (!blog) throw new AppError("Blog post not found", 404);
