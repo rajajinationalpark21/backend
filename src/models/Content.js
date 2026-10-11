@@ -23,10 +23,15 @@ const homeSectionSchema = new Schema(
     rules: text(160),
     aboutTitle: text(200),
     aboutDescription: text(3000),
+    aboutImage: text(600),
+    aboutImagePublicId: text(300),
+    aboutBadge: text(80),
     stats: new Schema(
       {
         tigers: text(40),
         acres: text(40),
+        sqKm: text(40),
+        forestArea: text(40),
       },
       { _id: false }
     ),

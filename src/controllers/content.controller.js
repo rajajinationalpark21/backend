@@ -34,7 +34,7 @@ function parseSectionPayload(raw) {
 }
 
 const IMAGE_FIELD_READERS = {
-  home: (payload) => [payload.heroBanner],
+  home: (payload) => [payload.heroBanner, payload.aboutImage],
   about: (payload) =>
     Array.isArray(payload.activities) ? payload.activities.map((activity) => activity?.image) : [],
   safari: () => [],
