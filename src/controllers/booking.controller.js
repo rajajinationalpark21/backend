@@ -7,7 +7,11 @@ import { getString } from "../utils/validation.js";
 export const submitBooking = asyncHandler(async (req, res) => {
   const name = getString(req.body, "name", { required: true, max: 120 });
   const email = getString(req.body, "email", { max: 160 });
-  const phone = getString(req.body, "phone", { max: 30 });
+  let phone = getString(req.body, "phone", { required: true, max: 30 });
+  phone = phone.replace(/\D/g, "");
+  if (phone.length !== 10) {
+    throw new AppError("Phone number must be a valid 10-digit mobile number without country code.", 400);
+  }
   const zone = getString(req.body, "zone", { required: true, max: 100 });
   const date = getString(req.body, "date", { required: true, max: 30 });
   const shift = getString(req.body, "shift", { required: true, max: 80 });
@@ -54,7 +58,7 @@ export const updateBooking = asyncHandler(async (req, res) => {
   const id = getString(req.body, "bookingId", { required: true });
   const status = getString(req.body, "status", { required: true });
 
-  if (!["new", "contacted", "confirmed", "cancelled"].includes(status)) {
+  if (!["new", "viewed", "not_viewed", "contacted", "confirmed", "cancelled"].includes(status)) {
     throw new AppError("Invalid status", 400);
   }
 

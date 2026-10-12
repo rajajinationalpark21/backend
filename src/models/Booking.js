@@ -15,8 +15,8 @@ const bookingSchema = new Schema(
     refNumber: { type: String, trim: true, maxlength: 30, default: "" },
     status: {
       type: String,
-      enum: ["new", "contacted", "confirmed", "cancelled"],
-      default: "new",
+      enum: ["new", "viewed", "not_viewed", "contacted", "confirmed", "cancelled"],
+      default: "not_viewed",
     },
   },
   { timestamps: true }

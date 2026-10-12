@@ -13,14 +13,21 @@ export const loginLimiter = rateLimit({
   },
 });
 
+// Each public form gets its own counter, so a visitor who sends a contact
+// message is not then blocked from booking or leaving a review.
+const publicFormLimiter = () =>
+  rateLimit({
+    windowMs: 10 * 60 * 1000,
+    limit: 5,
+    standardHeaders: "draft-7",
+    legacyHeaders: false,
+    message: {
+      success: false,
+      message: "Too many messages sent from this address. Please try again in a few minutes.",
+    },
+  });
+
 /** Keeps the public contact form from being used as a spam relay. */
-export const contactLimiter = rateLimit({
-  windowMs: 10 * 60 * 1000,
-  limit: 5,
-  standardHeaders: "draft-7",
-  legacyHeaders: false,
-  message: {
-    success: false,
-    message: "Too many messages sent from this address. Please try again in a few minutes.",
-  },
-});
+export const contactLimiter = publicFormLimiter();
+export const bookingLimiter = publicFormLimiter();
+export const feedbackLimiter = publicFormLimiter();

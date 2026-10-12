@@ -6,12 +6,12 @@ import {
   deleteBooking,
 } from "../controllers/booking.controller.js";
 import { requireAdmin } from "../middleware/auth.js";
-import { contactLimiter } from "../middleware/rateLimiters.js";
+import { bookingLimiter } from "../middleware/rateLimiters.js";
 
 const router = Router();
 
 // Public: submit a booking inquiry
-router.post("/submit", contactLimiter, submitBooking);
+router.post("/submit", bookingLimiter, submitBooking);
 
 // Admin: list, update status, delete
 router.get("/get", requireAdmin, listBookings);
