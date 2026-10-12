@@ -32,16 +32,8 @@ const uploader = multer({
   },
 });
 
-const maxFiles = env.uploads.maxFilesPerRequest;
-
 /** Blog cover image - the admin form field is `image`. */
 export const blogImage = uploader.single("image");
-
-/** Gallery upload - accepts one or many files under `images` (or `image`). */
-export const galleryImages = uploader.fields([
-  { name: "images", maxCount: maxFiles },
-  { name: "image", maxCount: maxFiles },
-]);
 
 /** Content sections - the home tab uploads a hero banner. */
 export const contentMedia = uploader.fields([{ name: "heroBanner", maxCount: 1 }]);

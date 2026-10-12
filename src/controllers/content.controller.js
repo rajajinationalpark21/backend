@@ -34,13 +34,28 @@ function parseSectionPayload(raw) {
 }
 
 const IMAGE_FIELD_READERS = {
-  home: (payload) => [payload.heroBanner, payload.aboutImage],
+  home: (payload) => [
+    payload.heroBanner,
+    payload.aboutImage,
+    ...(Array.isArray(payload.galleryImages) ? payload.galleryImages : []),
+  ],
   about: (payload) =>
     Array.isArray(payload.activities) ? payload.activities.map((activity) => activity?.image) : [],
   safari: (payload) => [
     payload.heroBanner,
     ...(Array.isArray(payload.zones) ? payload.zones.map((z) => z?.heroImage) : []),
   ],
+  tickets: (payload) => [payload.heroBanner],
+  parkRules: (payload) => [payload.heroBanner],
+  stay: (payload) => [payload.heroBanner],
+  faqs: (payload) => [payload.heroBanner],
+  activities: (payload) => [payload.heroBanner],
+  rafting: (payload) => [payload.heroBanner],
+  fauna: (payload) => [payload.heroBanner],
+  birds: (payload) => [payload.heroBanner],
+  reptiles: (payload) => [payload.heroBanner],
+  flora: (payload) => [payload.heroBanner],
+  butterflies: (payload) => [payload.heroBanner],
   settings: () => [],
 };
 
@@ -80,11 +95,14 @@ export const getSection = (section) =>
  */
 const buildUpdateHandler = (fixedSection) =>
   asyncHandler(async (req, res) => {
-    const section = fixedSection ?? getString(req.body, "section", { required: true, max: 20 }).toLowerCase();
+    // Matched case-insensitively, then resolved to the schema's camelCase key
+    // (`parkRules`, `howToReach`, ...).
+    const requested = fixedSection ?? getString(req.body, "section", { required: true, max: 20 });
+    const section = CONTENT_SECTIONS.find((key) => key.toLowerCase() === requested.toLowerCase());
 
-    if (!CONTENT_SECTIONS.includes(section)) {
+    if (!section) {
       throw new AppError(
-        `Unknown section "${section}". Expected one of: ${CONTENT_SECTIONS.join(", ")}`,
+        `Unknown section "${requested}". Expected one of: ${CONTENT_SECTIONS.join(", ")}`,
         400
       );
     }

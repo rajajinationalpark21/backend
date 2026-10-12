@@ -55,16 +55,6 @@ export function getObjectId(source, field, { required = true } = {}) {
   return raw;
 }
 
-export function getBoolean(source, field, fallback = true) {
-  const value = source?.[field];
-  if (value === undefined || value === null || value === "") return fallback;
-  if (typeof value === "boolean") return value;
-  if (value === "true" || value === "1") return true;
-  if (value === "false" || value === "0") return false;
-  throw new AppError(`"${field}" must be a boolean`, 400);
-}
-
-/** Accepts the several id names the admin panel uses for the same record. */
 export function getIdFromAliases(source, aliases, label) {
   for (const alias of aliases) {
     if (source?.[alias] !== undefined && source?.[alias] !== null && source?.[alias] !== "") {

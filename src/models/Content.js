@@ -35,8 +35,11 @@ const homeSectionSchema = new Schema(
       },
       { _id: false }
     ),
+    galleryTitle: text(200),
+    gallerySubtitle: text(300),
+    // "Captured Moments" photos in display order, any number. None means stock images.
+    galleryImages: { type: [text(600)], default: [] },
     featuredBlogs: { type: [{ type: String, trim: true }], default: [] },
-    featuredGallery: { type: [{ type: String, trim: true }], default: [] },
   },
   { _id: false }
 );
@@ -173,6 +176,7 @@ const birdFamilySchema = new Schema(
     group: text(160),
     desc: text(500),
     species: { type: [text(160)], default: [] },
+    image: text(600),
   },
   { _id: false }
 );
@@ -181,12 +185,17 @@ const restrictedRangeBirdSchema = new Schema(
   {
     name: text(200),
     status: text(200),
+    image: text(600),
   },
   { _id: false }
 );
 
 const birdsSectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(2000),
     stats: new Schema(
       {
@@ -212,6 +221,7 @@ const primeAttractionSchema = new Schema(
     name: text(200),
     count: text(40),
     details: text(1000),
+    image: text(600),
   },
   { _id: false }
 );
@@ -220,6 +230,7 @@ const faunaItemSchema = new Schema(
   {
     name: text(200),
     info: text(500),
+    image: text(600),
   },
   { _id: false }
 );
@@ -228,12 +239,17 @@ const reptileItemSchema = new Schema(
   {
     name: text(200),
     status: text(500),
+    image: text(600),
   },
   { _id: false }
 );
 
 const faunaSectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(2000),
     primeAttractions: { type: [primeAttractionSchema], default: [] },
     herbivores: { type: [faunaItemSchema], default: [] },
@@ -265,12 +281,17 @@ const dominantTreeSchema = new Schema(
     scientific: text(200),
     family: text(100),
     desc: text(500),
+    image: text(600),
   },
   { _id: false }
 );
 
 const floraSectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(2000),
     altitudinalBands: { type: [altitudinalBandSchema], default: [] },
     dominantTrees: { type: [dominantTreeSchema], default: [] },
@@ -284,12 +305,17 @@ const butterflyItemSchema = new Schema(
     name: text(200),
     family: text(100),
     habitat: text(300),
+    image: text(600),
   },
   { _id: false }
 );
 
 const butterfliesSectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(2000),
     mudPuddling: text(2000),
     species: { type: [butterflyItemSchema], default: [] },
@@ -308,6 +334,10 @@ const ruleItemSchema = new Schema(
 
 const parkRulesSectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(2000),
     dos: { type: [ruleItemSchema], default: [] },
     donts: { type: [ruleItemSchema], default: [] },
@@ -367,6 +397,10 @@ const filmFeeSchema = new Schema(
 
 const ticketsSectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     timings: new Schema(
       {
         summer: text(300),
@@ -467,6 +501,10 @@ const forestRestHouseSchema = new Schema(
 
 const staySectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(2000),
     wildBrook: new Schema(
       {
@@ -477,6 +515,9 @@ const staySectionSchema = new Schema(
         phone: text(100),
         email: text(200),
         features: { type: [text(300)], default: [] },
+        mainImage: text(600),
+        leafImage: text(600),
+        sunsetImage: text(600),
       },
       { _id: false }
     ),
@@ -542,12 +583,17 @@ const reptileDetailSchema = new Schema(
     status: text(200),
     habitat: text(500),
     description: text(2000),
+    image: text(600),
   },
   { _id: false }
 );
 
 const reptilesSectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(3000),
     species: { type: [reptileDetailSchema], default: [] },
     seoTitle: text(200),
@@ -568,6 +614,10 @@ const faqItemSchema = new Schema(
 
 const faqsSectionSchema = new Schema(
   {
+    title: text(200),
+    subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(1000),
     items: { type: [faqItemSchema], default: [] },
   },
@@ -591,6 +641,8 @@ const activitiesSectionSchema = new Schema(
   {
     title: text(200),
     subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     items: { type: [activityDetailSchema], default: [] },
   },
   { _id: false }
@@ -607,6 +659,7 @@ const rapidStretchSchema = new Schema(
     price: text(100),
     desc: text(2000),
     rapids: text(500),
+    image: text(600),
   },
   { _id: false }
 );
@@ -615,6 +668,8 @@ const raftingSectionSchema = new Schema(
   {
     title: text(200),
     subtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
     overview: text(3000),
     stretches: { type: [rapidStretchSchema], default: [] },
     safetyGuidelines: { type: [text(500)], default: [] },
