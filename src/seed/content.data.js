@@ -20,7 +20,7 @@ export const seedContent = {
       "The park's geography is shaped by the Ganges River, the Chilla River and numerous seasonal streams descending from the Shiwalik ridges. Rajaji National Park supports a mosaic of forest types, ranging from semi-evergreen and deciduous forests to mixed broad-leaved woodland and terai grasslands."
     ],
     "aboutStats": [
-      { "value": "820 km²", "label": "Total Area" }, { "value": "1983", "label": "Established" }, { "value": "48th", "label": "Tiger Reserve" }, { "value": "500+", "label": "Elephants" }, { "value": "50+", "label": "Bengal Tigers" }, { "value": "300+", "label": "Bird Species" }
+      { "value": "820 km²", "label": "Total Area" }, { "value": "1983", "label": "Established" }, { "value": "48th", "label": "Tiger Reserve" }, { "value": "500+", "label": "Elephants" }, { "value": "50+", "label": "Bengal Tigers" }, { "value": "400+", "label": "Bird Species" }
     ],
     "aboutReadMoreLabel": "Read the full story",
     "aboutReadLessLabel": "Show less",
@@ -47,7 +47,7 @@ export const seedContent = {
       "Situated along the Shiwalik ranges and their foothills, the reserve encompasses forested hills, rugged ridges, deep ravines, river valleys and grasslands. Its location near Dehradun, Haridwar and Rishikesh adds to its ecological and visitor significance.",
       "The Ganges River, the Chilla River and numerous seasonal streams shape the landscape. The reserve supports a mosaic of semi-evergreen and deciduous forest, mixed broad-leaved woodland and terai grasslands, with Sal-dominated habitat forming an important part of the ecosystem."
     ],
-    "overviewStats": [{ "value": "820 km²", "label": "National park area" }, { "value": "1983", "label": "Established" }, { "value": "48th", "label": "Tiger Reserve" }, { "value": "500+", "label": "Elephants" }, { "value": "50+", "label": "Bengal Tigers" }, { "value": "300+", "label": "Bird species" }],
+    "overviewStats": [{ "value": "820 km²", "label": "National park area" }, { "value": "1983", "label": "Established" }, { "value": "48th", "label": "Tiger Reserve" }, { "value": "500+", "label": "Elephants" }, { "value": "50+", "label": "Bengal Tigers" }, { "value": "400+", "label": "Bird species" }],
     "missionTitle": "Preserving Nature & Wildlife",
     "missionText": "The park exists to keep this landscape wild for the generations that follow. That means protecting habitat, supporting the villages that live alongside the forest, and teaching every visitor to leave nothing behind but tyre tracks. Tourism here funds conservation - your visit directly supports anti-poaching patrols, habitat restoration and wildlife monitoring.",
     "stats": {
@@ -293,8 +293,8 @@ export const seedContent = {
           "Birdwatching: kingfishers, barbets, hornbills, eagles and woodland birds",
           "Vindhyavasini Temple near the Ganges, surrounded by hills and forest"
         ],
-        "seoTitle": "Gohri Range Jungle Safari | Year-Round Safari Near Rishikesh",
-        "metaDescription": "Experience Gohri Range Jungle Safari in Rajaji Tiger Reserve. Open year-round near Rishikesh with magnificent wildlife, elephant trails, and tranquil birding.",
+        "seoTitle": "Gohri Range Jungle Safari | Rajaji Tiger Reserve Near Rishikesh",
+        "metaDescription": "Gohri Range jungle safari in Rajaji Tiger Reserve near Rishikesh. Generally open except August and September, subject to Forest Department permissions.",
         "heroImage": "https://res.cloudinary.com/b1b4jovc/image/upload/v1791647695/jungle-safari/gallery/website-seed/0106f8270893.webp",
         "heroImagePublicId": "jungle-safari/gallery/website-seed/0106f8270893",
         "wildlife": [
@@ -512,8 +512,7 @@ export const seedContent = {
           "Northern Goshawk",
           "Himalayan Griffon Vulture",
           "Eurasian Griffon",
-          "White-eyed Buzzard",
-          "Black-bellied Tern"
+          "White-eyed Buzzard"
         ],
         "image": "https://res.cloudinary.com/b1b4jovc/image/upload/v1791734581/jungle-safari/content/wildlife/birds/raptors-birds-of-prey.webp"
       },
@@ -538,7 +537,8 @@ export const seedContent = {
           "Darter (Snakebird)",
           "Ferruginous Pochard",
           "Ruddy Shelduck (Brahminy Duck)",
-          "Bar-headed Goose"
+          "Bar-headed Goose",
+          "Black-bellied Tern"
         ],
         "image": "https://res.cloudinary.com/b1b4jovc/image/upload/v1791776819/jungle-safari/content/umtbb3iqcdxtsbchxxvz.webp"
       }
@@ -1214,7 +1214,7 @@ export const seedContent = {
       "email": "jeepsafarirajajinationalpark@gmail.com",
       "features": [
         "Stone & bamboo eco-cottages surrounded by Shivalik ridges",
-        "Direct access to Gohri Range year-round buffer safari",
+        "Direct access to Gohri Range safari (generally open except August & September)",
         "Birdwatching trails with over 150 resident species",
         "Organic local Garhwali dining and evening bonfire talks"
       ],

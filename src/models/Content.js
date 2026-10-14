@@ -234,6 +234,15 @@ const birdsSectionSchema = new Schema(
     ),
     families: { type: [birdFamilySchema], default: [] },
     restrictedRange: { type: [restrictedRangeBirdSchema], default: [] },
+    // "Bird Watching in Rajaji" and "Birdwatching Packages" sections of the client doc.
+    watchingTitle: text(200),
+    watchingParagraphs: { type: [text(3000)], default: [] },
+    notableSpecies: { type: [text(160)], default: [] },
+    galleryImages: { type: [text(600)], default: [] },
+    packagesTitle: text(200),
+    packagesText: text(1000),
+    packagesContactName: text(160),
+    packagesPhones: { type: [text(40)], default: [] },
   },
   { _id: false }
 );

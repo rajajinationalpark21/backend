@@ -52,7 +52,10 @@ const IMAGE_FIELD_READERS = {
   activities: (payload) => [payload.heroBanner],
   rafting: (payload) => [payload.heroBanner],
   fauna: (payload) => [payload.heroBanner, payload.hubHeroBanner],
-  birds: (payload) => [payload.heroBanner],
+  birds: (payload) => [
+    payload.heroBanner,
+    ...(Array.isArray(payload.galleryImages) ? payload.galleryImages : []),
+  ],
   reptiles: (payload) => [payload.heroBanner],
   flora: (payload) => [payload.heroBanner],
   butterflies: (payload) => [payload.heroBanner],
