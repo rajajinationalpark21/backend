@@ -11,7 +11,8 @@
     "seed:force": "node src/seed/seed.js --force",
     "seed:website-images": "node src/seed/seedWebsiteImages.js",
     "seed:wildlife": "node src/seed/seedWildlife.js",
-    "seed:zone-heroes": "node src/seed/seedZoneHeroes.js"
+    "seed:zone-heroes": "node src/seed/seedZoneHeroes.js",
+    "sync:home-booking": "node src/scripts/syncHomeBookingContent.js"
   },
   "engines": {
     "node": ">=18.17"

@@ -56,8 +56,20 @@ const IMAGE_FIELD_READERS = {
   reptiles: (payload) => [payload.heroBanner],
   flora: (payload) => [payload.heroBanner],
   butterflies: (payload) => [payload.heroBanner],
+  booking: (payload) => [payload.heroBanner],
   settings: () => [],
 };
+
+// Rotating header lists (`heroImages`, zone `heroImages`, home `aboutImages`)
+// follow the same URL-only rule as the single image fields above.
+function imageListValues(payload) {
+  const list = (value) => (Array.isArray(value) ? value : []);
+  return [
+    ...list(payload.heroImages),
+    ...list(payload.aboutImages),
+    ...list(payload.zones).flatMap((zone) => list(zone?.heroImages)),
+  ];
+}
 
 /**
  * A browser File survives JSON.stringify as `{}`. Rather than storing garbage or
@@ -66,7 +78,7 @@ const IMAGE_FIELD_READERS = {
 function assertImagesAreUrls(section, payload) {
   const reader = IMAGE_FIELD_READERS[section];
   if (!reader) return;
-  for (const value of reader(payload)) {
+  for (const value of [...reader(payload), ...imageListValues(payload)]) {
     if (value != null && value !== "" && typeof value !== "string") {
       throw new AppError(
         'Image fields must be URL strings. Send the file as multipart/form-data under "heroBanner", ' +

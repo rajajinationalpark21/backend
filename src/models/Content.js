@@ -11,6 +11,11 @@ const { Schema } = mongoose;
  */
 const text = (max = 2000) => ({ type: String, trim: true, maxlength: max, default: "" });
 
+const labelValueSchema = new Schema(
+  { value: text(80), label: text(160) },
+  { _id: false }
+);
+
 const homeSectionSchema = new Schema(
   {
     tagline: text(160),
@@ -18,13 +23,21 @@ const homeSectionSchema = new Schema(
     heroSubtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     timings: text(160),
     zones: text(160),
     rules: text(160),
     aboutTitle: text(200),
     aboutDescription: text(3000),
+    // New editorial fields retain the legacy description for existing clients.
+    aboutIntro: text(3000),
+    aboutDetails: { type: [text(3000)], default: [] },
+    aboutStats: { type: [labelValueSchema], default: [] },
+    aboutReadMoreLabel: text(80),
+    aboutReadLessLabel: text(80),
     aboutImage: text(600),
     aboutImagePublicId: text(300),
+    aboutImages: { type: [text(600)], default: [] },
     aboutBadge: text(80),
     stats: new Schema(
       {
@@ -66,6 +79,10 @@ const aboutSectionSchema = new Schema(
   {
     title: text(200),
     subtitle: text(300),
+    overviewTitle: text(200),
+    overviewIntro: text(3000),
+    overviewParagraphs: { type: [text(3000)], default: [] },
+    overviewStats: { type: [labelValueSchema], default: [] },
     missionTitle: text(200),
     missionText: text(5000),
     stats: new Schema(
@@ -102,6 +119,7 @@ const zoneItemSchema = new Schema(
     metaDescription: text(500),
     heroImage: text(600),
     heroImagePublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
   },
   { _id: false }
 );
@@ -120,6 +138,7 @@ const safariSectionSchema = new Schema(
     subtitle: text(300),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     zones: { type: [zoneItemSchema], default: [] },
     animals: { type: [{ type: String, trim: true, maxlength: 120 }], default: [] },
     rules: { type: [{ type: String, trim: true, maxlength: 500 }], default: [] },
@@ -196,6 +215,7 @@ const birdsSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(2000),
     stats: new Schema(
       {
@@ -250,6 +270,7 @@ const faunaSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(2000),
     primeAttractions: { type: [primeAttractionSchema], default: [] },
     herbivores: { type: [faunaItemSchema], default: [] },
@@ -292,6 +313,7 @@ const floraSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(2000),
     altitudinalBands: { type: [altitudinalBandSchema], default: [] },
     dominantTrees: { type: [dominantTreeSchema], default: [] },
@@ -316,6 +338,7 @@ const butterfliesSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(2000),
     mudPuddling: text(2000),
     species: { type: [butterflyItemSchema], default: [] },
@@ -338,6 +361,7 @@ const parkRulesSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(2000),
     dos: { type: [ruleItemSchema], default: [] },
     donts: { type: [ruleItemSchema], default: [] },
@@ -401,6 +425,7 @@ const ticketsSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     timings: new Schema(
       {
         summer: text(300),
@@ -505,6 +530,7 @@ const staySectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(2000),
     wildBrook: new Schema(
       {
@@ -594,6 +620,7 @@ const reptilesSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(3000),
     species: { type: [reptileDetailSchema], default: [] },
     seoTitle: text(200),
@@ -618,6 +645,7 @@ const faqsSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(1000),
     items: { type: [faqItemSchema], default: [] },
   },
@@ -643,6 +671,7 @@ const activitiesSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     items: { type: [activityDetailSchema], default: [] },
   },
   { _id: false }
@@ -670,9 +699,41 @@ const raftingSectionSchema = new Schema(
     subtitle: text(1000),
     heroBanner: text(600),
     heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
     overview: text(3000),
     stretches: { type: [rapidStretchSchema], default: [] },
     safetyGuidelines: { type: [text(500)], default: [] },
+  },
+  { _id: false }
+);
+
+const bookingPhoneSchema = new Schema(
+  { label: text(100), number: text(40) },
+  { _id: false }
+);
+
+const bookingSectionSchema = new Schema(
+  {
+    heroTitle: text(200),
+    heroSubtitle: text(1000),
+    heroBanner: text(600),
+    heroBannerPublicId: text(300),
+    heroImages: { type: [text(600)], default: [] },
+    overviewTitle: text(200),
+    overviewParagraphs: { type: [text(3000)], default: [] },
+    enquiryTitle: text(200),
+    enquirySubtitle: text(500),
+    assistanceItems: { type: [text(300)], default: [] },
+    responseMessage: text(300),
+    onlineBookingTitle: text(200),
+    onlineBookingDescription: text(1500),
+    disclaimerTitle: text(200),
+    disclaimerParagraphs: { type: [text(1500)], default: [] },
+    contactTitle: text(200),
+    contactAddress: text(500),
+    contactPhones: { type: [bookingPhoneSchema], default: [] },
+    guidelinesTitle: text(200),
+    guidelines: { type: [text(600)], default: [] },
   },
   { _id: false }
 );
@@ -698,6 +759,7 @@ const contentSchema = new Schema(
     faqs: { type: faqsSectionSchema, default: () => ({}) },
     activities: { type: activitiesSectionSchema, default: () => ({}) },
     rafting: { type: raftingSectionSchema, default: () => ({}) },
+    booking: { type: bookingSectionSchema, default: () => ({}) },
   },
   { timestamps: true }
 );
@@ -707,7 +769,7 @@ export const CONTENT_SECTIONS = [
   "birds", "fauna", "flora", "butterflies", "reptiles",
   "parkRules", "tickets", "howToReach", "stay",
   "birdingAreas", "ecoTourism",
-  "faqs", "activities", "rafting",
+  "faqs", "activities", "rafting", "booking",
 ];
 
 export const Content = mongoose.model("Content", contentSchema);

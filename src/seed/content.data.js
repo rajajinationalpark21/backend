@@ -13,6 +13,17 @@ export const seedContent = {
     "rules": "Do's & Don'ts Guide",
     "aboutTitle": "About Rajaji National Park",
     "aboutDescription": "Rajaji National Park, now part of Rajaji Tiger Reserve, spreads across 820.42 sq km of the Shivalik foothills on both sides of the River Ganga in Uttarakhand. Formed in 1983 by merging the Rajaji, Motichur and Chilla sanctuaries, it shelters Asian elephants, Bengal tigers, leopards, deer and around 400 species of birds, and is within easy reach of Haridwar, Rishikesh and Dehradun.",
+    "aboutIntro": "Rajaji National Park, located in Uttarakhand, India, is a significant wildlife conservation landscape presenting rich biodiversity of the Shiwalik hills and Himalayan foothills. The park was established in 1983 by merging the Rajaji, Motichur and Chilla sanctuaries and was named in honour of C. Rajagopalachari, popularly known as Rajaji.",
+    "aboutDetails": [
+      "The national park covers 820.42 sq. km. In 2015, an additional 255.63 sq. km. of adjoining reserved forest was incorporated as a buffer zone, bringing the total area to approximately 1,075 sq. km. and resulting in the designation of Rajaji Tiger Reserve under the provisions of the Wildlife (Protection) Act, 1972.",
+      "Situated along the Shiwalik ranges and their foothills, the reserve encompasses a diverse landscape of forested hills, rugged ridges, deep ravines, river valleys and grasslands. Its proximity to Dehradun, Haridwar and the yoga city Rishikesh further enhances its ecological importance.",
+      "The park's geography is shaped by the Ganges River, the Chilla River and numerous seasonal streams descending from the Shiwalik ridges. Rajaji National Park supports a mosaic of forest types, ranging from semi-evergreen and deciduous forests to mixed broad-leaved woodland and terai grasslands."
+    ],
+    "aboutStats": [
+      { "value": "820 km²", "label": "Total Area" }, { "value": "1983", "label": "Established" }, { "value": "48th", "label": "Tiger Reserve" }, { "value": "500+", "label": "Elephants" }, { "value": "50+", "label": "Bengal Tigers" }, { "value": "300+", "label": "Bird Species" }
+    ],
+    "aboutReadMoreLabel": "Read the full story",
+    "aboutReadLessLabel": "Show less",
     "aboutImage": "https://res.cloudinary.com/b1b4jovc/image/upload/v1791714944/jungle-safari/content/oacmwxhdva5fcj5d4rj8.webp",
     "aboutImagePublicId": "",
     "aboutBadge": "EST. 1983",
@@ -27,8 +38,16 @@ export const seedContent = {
     ]
   },
   "about": {
-    "title": "Our Wild Legacy",
-    "subtitle": "Exploring the heart of nature, one safari at a time",
+    "title": "About Rajaji National Park",
+    "subtitle": "A living landscape of forests, rivers and wildlife in the Shiwalik foothills of Uttarakhand.",
+    "overviewTitle": "Rajaji at a glance",
+    "overviewIntro": "Rajaji National Park, now part of Rajaji Tiger Reserve, is a significant wildlife conservation landscape in Uttarakhand. Established in 1983 through the merger of the Rajaji, Motichur and Chilla sanctuaries, it was named in honour of C. Rajagopalachari, popularly known as Rajaji.",
+    "overviewParagraphs": [
+      "The national park covers 820.42 sq. km. In 2015, an additional 255.63 sq. km. of adjoining reserved forest was incorporated as a buffer zone, bringing the total area to approximately 1,075 sq. km. and resulting in the designation of Rajaji Tiger Reserve under the provisions of the Wildlife (Protection) Act, 1972.",
+      "Situated along the Shiwalik ranges and their foothills, the reserve encompasses forested hills, rugged ridges, deep ravines, river valleys and grasslands. Its location near Dehradun, Haridwar and Rishikesh adds to its ecological and visitor significance.",
+      "The Ganges River, the Chilla River and numerous seasonal streams shape the landscape. The reserve supports a mosaic of semi-evergreen and deciduous forest, mixed broad-leaved woodland and terai grasslands, with Sal-dominated habitat forming an important part of the ecosystem."
+    ],
+    "overviewStats": [{ "value": "820 km²", "label": "National park area" }, { "value": "1983", "label": "Established" }, { "value": "48th", "label": "Tiger Reserve" }, { "value": "500+", "label": "Elephants" }, { "value": "50+", "label": "Bengal Tigers" }, { "value": "300+", "label": "Bird species" }],
     "missionTitle": "Preserving Nature & Wildlife",
     "missionText": "The park exists to keep this landscape wild for the generations that follow. That means protecting habitat, supporting the villages that live alongside the forest, and teaching every visitor to leave nothing behind but tyre tracks. Tourism here funds conservation - your visit directly supports anti-poaching patrols, habitat restoration and wildlife monitoring.",
     "stats": {
@@ -1642,5 +1661,27 @@ export const seedContent = {
       "Guests with heart ailments, asthma, or physical disabilities must declare conditions in advance.",
       "Zero alcohol or substance use before or during the river descent."
     ]
+  },
+  "booking": {
+    "heroTitle": "Book Your Rajaji Jeep Safari",
+    "heroSubtitle": "Share your preferred date, zone and visitor details. Our team will help you check availability, permit requirements and booking options.",
+    "overviewTitle": "Rajaji Safari Booking Overview",
+    "overviewParagraphs": [
+      "Rajaji National Park offers a chance to experience the forests, grasslands and riverine habitats of the Shiwalik foothills. Safari availability, entry permits and zone access are subject to Forest Department rules and availability.",
+      "Use the form below to send your preferred safari date, zone and number of visitors. The team will guide you through the next steps for availability, charges and entry requirements."
+    ],
+    "enquiryTitle": "Send Your Safari Enquiry",
+    "enquirySubtitle": "Confirmed within 1 hour, or WhatsApp us for an instant reply.",
+    "assistanceItems": ["Safari availability", "Zone selection", "Entry and permit requirements", "Jeep/Gypsy booking", "Guide arrangements", "Booking and payment assistance"],
+    "responseMessage": "Our team will contact you with availability, tariff and permit details.",
+    "onlineBookingTitle": "Book Online",
+    "onlineBookingDescription": "Enter your preferred date, zone, visitor count and contact details. We will assist with availability, charges and requirements before a booking is confirmed.",
+    "disclaimerTitle": "Important information",
+    "disclaimerParagraphs": ["This is an independent, privately owned assistance and information site and is not affiliated with any government department.", "Permits, fees and entry are subject to Forest Department rules and availability. Please consult official government sources for authoritative notices."],
+    "contactTitle": "Safari booking assistance",
+    "contactAddress": "Chilla Jungle Safari Gate, near Haridwar and Rishikesh, Uttarakhand – 249306",
+    "contactPhones": [{"label": "Safari desk", "number": "+91 98298 50501"}, {"label": "Safari desk", "number": "+91 93765 91390"}, {"label": "Safari desk", "number": "+91 99829 07130"}],
+    "guidelinesTitle": "Booking guidelines",
+    "guidelines": ["Carry the original photo ID used for the inquiry for gate verification.", "Arrive at the designated zone entry gate before the scheduled reporting time.", "Follow sanctuary protocols: avoid plastic, wear muted colours and do not fly drones."]
   }
 };
