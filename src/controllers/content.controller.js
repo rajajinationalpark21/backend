@@ -51,7 +51,7 @@ const IMAGE_FIELD_READERS = {
   faqs: (payload) => [payload.heroBanner],
   activities: (payload) => [payload.heroBanner],
   rafting: (payload) => [payload.heroBanner],
-  fauna: (payload) => [payload.heroBanner],
+  fauna: (payload) => [payload.heroBanner, payload.hubHeroBanner],
   birds: (payload) => [payload.heroBanner],
   reptiles: (payload) => [payload.heroBanner],
   flora: (payload) => [payload.heroBanner],
@@ -67,7 +67,7 @@ function imageListValues(payload) {
   return [
     ...list(payload.heroImages),
     ...list(payload.aboutImages),
-    ...list(payload.zones).flatMap((zone) => list(zone?.heroImages)),
+    ...list(payload.zones).flatMap((zone) => [...list(zone?.heroImages), ...list(zone?.galleryImages)]),
   ];
 }
 

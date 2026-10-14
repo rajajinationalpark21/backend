@@ -12,7 +12,8 @@
     "seed:website-images": "node src/seed/seedWebsiteImages.js",
     "seed:wildlife": "node src/seed/seedWildlife.js",
     "seed:zone-heroes": "node src/seed/seedZoneHeroes.js",
-    "sync:home-booking": "node src/scripts/syncHomeBookingContent.js"
+    "sync:home-booking": "node src/scripts/syncHomeBookingContent.js",
+    "media:apply": "node src/scripts/applyMediaCurationPlan.js"
   },
   "engines": {
     "node": ">=18.17"

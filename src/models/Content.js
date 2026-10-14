@@ -119,7 +119,10 @@ const zoneItemSchema = new Schema(
     metaDescription: text(500),
     heroImage: text(600),
     heroImagePublicId: text(300),
+    heroImageAlt: text(300),
     heroImages: { type: [text(600)], default: [] },
+    // Zone page "Gallery" section, in display order.
+    galleryImages: { type: [text(600)], default: [] },
   },
   { _id: false }
 );
@@ -271,6 +274,10 @@ const faunaSectionSchema = new Schema(
     heroBanner: text(600),
     heroBannerPublicId: text(300),
     heroImages: { type: [text(600)], default: [] },
+    // The Wildlife & Biodiversity hub has no section of its own; its header
+    // lives here so it no longer shares the Mammals page photo.
+    hubHeroBanner: text(600),
+    hubHeroBannerPublicId: text(300),
     overview: text(2000),
     primeAttractions: { type: [primeAttractionSchema], default: [] },
     herbivores: { type: [faunaItemSchema], default: [] },
