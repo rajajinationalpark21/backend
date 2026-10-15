@@ -62,7 +62,7 @@ function uploadBuffer(buffer, { folder, publicId }) {
  * Normalizes a multer memory-storage file into the shape the models store, so
  * controllers never deal with the raw Cloudinary response.
  */
-async function optimizeImageBuffer(buffer) {
+export async function optimizeImageBuffer(buffer) {
   // Compression & auto-adjustment happen before the file reaches Cloudinary.
   // This keeps large camera originals within provider limits, enhances contrast/dynamic range,
   // and reduces storage and bandwidth for every current and future admin upload.

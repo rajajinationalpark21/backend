@@ -70,6 +70,7 @@ function imageListValues(payload) {
   return [
     ...list(payload.heroImages),
     ...list(payload.aboutImages),
+    ...list(payload.galleryImages),
     ...list(payload.zones).flatMap((zone) => [...list(zone?.heroImages), ...list(zone?.galleryImages)]),
   ];
 }

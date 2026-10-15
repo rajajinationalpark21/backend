@@ -11,6 +11,10 @@ const { Schema } = mongoose;
  */
 const text = (max = 2000) => ({ type: String, trim: true, maxlength: max, default: "" });
 
+// A client page document, as ordered blocks ({ t: "h2" | "p" | "ul" | "table" | ... })
+// produced by tools/extract_client_docs.py and rendered by the site's DocContent.
+const docBlocks = () => ({ type: [Schema.Types.Mixed], default: [] });
+
 const labelValueSchema = new Schema(
   { value: text(80), label: text(160) },
   { _id: false }
@@ -96,6 +100,10 @@ const aboutSectionSchema = new Schema(
     ),
     journey: { type: [journeyItemSchema], default: [] },
     activities: { type: [activityItemSchema], default: [] },
+    // The client's "Page – Home About Rajaji" document after its opening
+    // section; a `gallery` block marks where the photo strip goes.
+    docBlocks: docBlocks(),
+    galleryImages: { type: [text(600)], default: [] },
   },
   { _id: false }
 );
@@ -123,6 +131,10 @@ const zoneItemSchema = new Schema(
     heroImages: { type: [text(600)], default: [] },
     // Zone page "Gallery" section, in display order.
     galleryImages: { type: [text(600)], default: [] },
+    // The zone's page document; when present the page shows it in full.
+    docTitle: text(300),
+    docKicker: { type: [text(300)], default: [] },
+    docBlocks: docBlocks(),
   },
   { _id: false }
 );
@@ -243,6 +255,7 @@ const birdsSectionSchema = new Schema(
     packagesText: text(1000),
     packagesContactName: text(160),
     packagesPhones: { type: [text(40)], default: [] },
+    docBlocks: docBlocks(),
   },
   { _id: false }
 );
@@ -287,6 +300,13 @@ const faunaSectionSchema = new Schema(
     // lives here so it no longer shares the Mammals page photo.
     hubHeroBanner: text(600),
     hubHeroBannerPublicId: text(300),
+    // The hub's page document (Wildlife & Biodiversity main page).
+    hubDocTitle: text(300),
+    hubDocBlocks: docBlocks(),
+    // Mammals page document sections and photo gallery.
+    docBlocks: docBlocks(),
+    galleryTitle: text(200),
+    galleryImages: { type: [text(600)], default: [] },
     overview: text(2000),
     primeAttractions: { type: [primeAttractionSchema], default: [] },
     herbivores: { type: [faunaItemSchema], default: [] },
@@ -333,6 +353,9 @@ const floraSectionSchema = new Schema(
     overview: text(2000),
     altitudinalBands: { type: [altitudinalBandSchema], default: [] },
     dominantTrees: { type: [dominantTreeSchema], default: [] },
+    docBlocks: docBlocks(),
+    galleryTitle: text(200),
+    galleryImages: { type: [text(600)], default: [] },
   },
   { _id: false }
 );
@@ -358,6 +381,9 @@ const butterfliesSectionSchema = new Schema(
     overview: text(2000),
     mudPuddling: text(2000),
     species: { type: [butterflyItemSchema], default: [] },
+    docBlocks: docBlocks(),
+    galleryTitle: text(200),
+    galleryImages: { type: [text(600)], default: [] },
   },
   { _id: false }
 );
@@ -442,6 +468,10 @@ const ticketsSectionSchema = new Schema(
     heroBanner: text(600),
     heroBannerPublicId: text(300),
     heroImages: { type: [text(600)], default: [] },
+    // The Tickets page document; when present the page shows it in full.
+    docTitle: text(300),
+    docBlocks: docBlocks(),
+    galleryImages: { type: [text(600)], default: [] },
     timings: new Schema(
       {
         summer: text(300),
@@ -641,6 +671,9 @@ const reptilesSectionSchema = new Schema(
     species: { type: [reptileDetailSchema], default: [] },
     seoTitle: text(200),
     metaDescription: text(500),
+    docBlocks: docBlocks(),
+    galleryTitle: text(200),
+    galleryImages: { type: [text(600)], default: [] },
   },
   { _id: false }
 );

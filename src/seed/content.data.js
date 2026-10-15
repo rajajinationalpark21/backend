@@ -1442,7 +1442,7 @@ export const seedContent = {
       "4. Student Concession: Student concessions are available only for recognised institutional educational tours, subject to applicable Forest Department rules, eligibility and approval.",
       "5. Children: Children above 11 years will be charged the applicable park entry fee, subject to the prevailing rules and regulations.",
       "6. Nature Guide: An authorised nature guide/local guide is mandatory with each safari vehicle wherever required under the applicable park and Forest Department regulations.",
-      "7. Permit Changes, Cancellations & Refunds: Once a safari permit has been issued, changes to the safari date, slot or zone may not be permitted, subject to the rules of the concerned Forest Department. Cancellation, modification or refund requests are handled strictly according to the applicable Forest Department/park rules; where those rules do not permit a refund or change, no refund will be provided.",
+      "7. Permit Changes, Cancellations & Refunds: Once a safari permit has been issued, changes to the safari date, slot or zone may not be permitted, subject to the rules of the concerned Forest Department. Any cancellation, modification or refund request will be handled strictly according to the applicable Forest Department/park rules and the terms applicable to the booking. Where the applicable rules do not permit a refund or change, no refund will be provided.",
       "8. Safari Cancellation Due to Circumstances Beyond Our Control: If a safari is cancelled, suspended or does not operate due to natural calamities, adverse weather conditions, government or Forest Department restrictions, wildlife-related safety concerns, park closure, or other circumstances beyond our control, no refund will be provided."
     ],
     "importantNotes": [
@@ -1516,7 +1516,7 @@ export const seedContent = {
   },
   "activities": {
     "title": "Activities at Rajaji National Park",
-    "subtitle": "From adrenaline-fueled 4x4 jeep safaris and white-water rafting to peaceful birdwatching trails and secluded forest stays in the foothills of Uttarakhand.",
+    "subtitle": "From adrenaline-fueled 4x4 jeep safaris and white-water rafting to secluded forest stays in the foothills of Uttarakhand.",
     "heroBanner": "https://res.cloudinary.com/b1b4jovc/image/upload/v1791714912/jungle-safari/content/coimypiphstxoys1om0i.webp",
     "heroBannerPublicId": "",
     "items": [
@@ -1527,14 +1527,6 @@ export const seedContent = {
         "desc": "Explore Rajaji Tiger Reserve on a guided Jeep Safari across six safari zones: Chilla, Motichur, Ranipur, Mohand–Chillawali, Jhilmil Jheel and Gohri. Depending on the season and natural conditions, visitors may encounter Asian Elephants, deer, Wild Boar, birds and other wildlife.",
         "image": "https://res.cloudinary.com/b1b4jovc/image/upload/v1791714616/jungle-safari/content/qikj0hwxb1re8nnwnh42.webp",
         "cta": "Explore Safari Zones"
-      },
-      {
-        "title": "Bird Watching",
-        "tagline": "400+ Avian Species & Expert Guides",
-        "slug": "/birds-of-rajaji-national-park",
-        "desc": "Explore prime Important Bird Area (IBA) river corridors and Sal canopies with specialised nature guides. Spot Great Hornbills, Crested Kingfishers, Pallas's Fish Eagles, and seasonal migratory waterfowl.",
-        "image": "https://res.cloudinary.com/b1b4jovc/image/upload/v1791715905/jungle-safari/content/ryaat8g3qozuzoh7v2ix.webp",
-        "cta": "View Bird Watching Guide"
       },
       {
         "title": "Stay in Rajaji",

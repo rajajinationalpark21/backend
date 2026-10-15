@@ -1,10 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { connectDatabase, disconnectDatabase } from "../config/db.js";
-import { FOLDERS, uploadImage } from "../config/cloudinary.js";
 import { getContentDocument } from "../models/Content.js";
-import { GalleryImage } from "../models/GalleryImage.js";
+import { TICKETS, WILDLIFE, ZONES, createUploader, sourceRoot } from "./clientMedia.js";
 
 // Applies documentation/media-curation-plan.md: every page frame gets the
 // approved client photo, uploaded through the same optimizer as admin uploads.
@@ -17,23 +15,15 @@ import { GalleryImage } from "../models/GalleryImage.js";
 //   node src/scripts/applyMediaCurationPlan.js
 
 const dryRun = process.argv.includes("--dry-run");
-const here = path.dirname(fileURLToPath(import.meta.url));
-const sourceRoot = path.resolve(
-  here, "../../..", "documentation", "wetransfer_photos-for-website_2026-10-10_0653"
-);
-
-const ZONES = "PAGE - Jungle Safari Jeep Safari Zones";
 const CHILLA = `${ZONES}/Photos - Jeep safari Jungle safari Chilla`;
 const CHILLAWALI = `${ZONES}/Photos - Jeep Safari Jungle safari Chillawali`;
 const GOHARI = `${ZONES}/Photos - Jeep Safari Jungle safari Gohari`;
 const JHILMIL = `${ZONES}/Photos - Jeep safari Jungle safari Jhilmil`;
 const MOTICHUR = `${ZONES}/Photos - Jeep Safari Jungle safari Motichur`;
 const RANIPUR = `${ZONES}/Photos - Jeep safari Jungle safari Ranipur`;
-const WILDLIFE = "PAGE - Wildlife & Biodiversity";
 const MAMMALS = `${WILDLIFE}/Photos - Sub-page - Mammals of Rajaji`;
 const BUTTERFLIES = `${WILDLIFE}/Photos - Sub-page - Butterflies of Rajaji`;
 const FLORA = `${WILDLIFE}/Photos - Sub-page - Flora of Rajaji`;
-const TICKETS = "PAGE - Ticket and Entry";
 
 const TIGER = `${MAMMALS}/tiger 1.png`;
 const ELEPHANT_HERD = `${GOHARI}/Asian Elephant Herd in Forest Grassland.png`;
@@ -146,57 +136,7 @@ const LIST_PLAN = [
   ]],
 ];
 
-function slugFor(source) {
-  return source
-    .replace(/^PAGE - /, "")
-    .replace(/Photos? ?- ?(Sub-page - |Main page - |Jeep [Ss]afari Jungle safari )?/g, "")
-    .toLowerCase()
-    .replace(/\.[a-z]+$/, "")
-    .replace(/[^a-z0-9/]+/g, "-")
-    .replace(/-*\/-*/g, "/")
-    .replace(/^-|-$/g, "");
-}
-
-function categoryFor(source) {
-  const zone = source.match(/Jungle safari (\w+)\//);
-  if (zone) return `Safari Zone — ${zone[1]}`;
-  if (source.startsWith(TICKETS)) return "Tickets & Entry";
-  const sub = source.match(/Sub-page - (.+?)\//);
-  return sub ? sub[1] : "Wildlife & Biodiversity";
-}
-
-const uploaded = new Map();
-
-async function upload(source) {
-  if (uploaded.has(source)) return uploaded.get(source);
-  const absolutePath = path.join(sourceRoot, source);
-  const publicId = `media-plan/${slugFor(source)}`;
-  if (dryRun) {
-    const placeholder = { url: `(upload ${source})`, publicId };
-    uploaded.set(source, placeholder);
-    return placeholder;
-  }
-  const buffer = await fs.readFile(absolutePath);
-  const image = await uploadImage(
-    { buffer, originalname: path.basename(absolutePath) },
-    FOLDERS.content,
-    { publicId }
-  );
-  // Keep the admin gallery in step: one record per source photo, replacing
-  // any record from the earlier bulk import whose asset no longer exists.
-  await GalleryImage.findOneAndUpdate(
-    { sourceKey: source },
-    {
-      url: image.url, publicId: image.publicId, format: image.format,
-      width: image.width, height: image.height, bytes: image.bytes,
-      title: path.basename(source, path.extname(source)), category: categoryFor(source),
-    },
-    { upsert: true, setDefaultsOnInsert: true }
-  );
-  uploaded.set(source, image);
-  console.log(`  uploaded ${source}\n        -> ${image.url}`);
-  return image;
-}
+const upload = createUploader({ dryRun });
 
 async function uploadAll(sources) {
   const images = [];
