@@ -63,7 +63,7 @@ const IMAGE_FIELD_READERS = {
   jeepSafari: (payload) => [payload.heroBanner],
   birdWatching: (payload) => [payload.heroBanner],
   trekking: (payload) => [payload.heroBanner],
-  howToReach: (payload) => [payload.heroBanner],
+  howToReach: (payload) => [payload.heroBanner, payload.mapImage],
   settings: () => [],
 };
 

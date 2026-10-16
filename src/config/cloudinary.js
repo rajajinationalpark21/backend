@@ -62,20 +62,23 @@ function uploadBuffer(buffer, { folder, publicId }) {
  * Normalizes a multer memory-storage file into the shape the models store, so
  * controllers never deal with the raw Cloudinary response.
  */
-export async function optimizeImageBuffer(buffer) {
+/**
+ * `artwork: true` is for drawn images such as maps: no contrast stretch (it
+ * turns flat colours dark) and a higher quality for crisp lines and labels.
+ */
+export async function optimizeImageBuffer(buffer, { artwork = false } = {}) {
   // Compression & auto-adjustment happen before the file reaches Cloudinary.
   // This keeps large camera originals within provider limits, enhances contrast/dynamic range,
   // and reduces storage and bandwidth for every current and future admin upload.
-  return sharp(buffer, { animated: false, limitInputPixels: false })
+  let image = sharp(buffer, { animated: false, limitInputPixels: false })
     .rotate() // Auto-orient based on camera EXIF tags
-    .resize({ width: 2400, height: 1600, fit: "inside", withoutEnlargement: true })
-    .normalize() // Auto-adjust contrast & dynamic range across color channels
-    .webp({ quality: 82, smartSubsample: true })
-    .toBuffer();
+    .resize({ width: 2400, height: artwork ? 2400 : 1600, fit: "inside", withoutEnlargement: true });
+  if (!artwork) image = image.normalize(); // Auto-adjust contrast & dynamic range across color channels
+  return image.webp({ quality: artwork ? 92 : 82, smartSubsample: !artwork }).toBuffer();
 }
 
-export async function uploadImage(file, folder, { publicId } = {}) {
-  const optimizedBuffer = await optimizeImageBuffer(file.buffer);
+export async function uploadImage(file, folder, { publicId, artwork = false } = {}) {
+  const optimizedBuffer = await optimizeImageBuffer(file.buffer, { artwork });
   const result = await uploadBuffer(optimizedBuffer, { folder, publicId });
 
   return {

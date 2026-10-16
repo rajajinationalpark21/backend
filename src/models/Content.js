@@ -881,6 +881,9 @@ howToReachSectionSchema.add({
   subtitle: text(1000),
   heroBanner: text(600),
   heroImages: { type: [text(600)], default: [] },
+  // Route map shown above the directions.
+  mapImage: text(600),
+  mapImageAlt: text(300),
 });
 
 // ── Main Content Schema ────────────────────────────────────────────────────────

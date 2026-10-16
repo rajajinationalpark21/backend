@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { connectDatabase, disconnectDatabase } from "../config/db.js";
 import { getContentDocument } from "../models/Content.js";
+import { FOLDERS, optimizeImageBuffer, uploadImage } from "../config/cloudinary.js";
 import { createUploader, sourceRoot } from "./clientMedia.js";
 
 // Adds what the client's documents contain but the site does not yet show,
@@ -101,6 +102,25 @@ function set(target, key, value, label) {
 function fill(target, key, value, label) {
   if (isEmpty(value) || !isEmpty(target[key]?.toObject ? target[key].toObject() : target[key])) return;
   set(target, key, value, label);
+}
+
+// Images made for the site rather than supplied in the client's photo folders.
+const siteAssets = path.resolve(here, "../../..", "documentation", "site-assets");
+
+/** Uploads one file from documentation/site-assets (or writes it to --local-media). */
+async function uploadSiteAsset(file, publicId) {
+  if (dryRun) return { url: `(upload site-assets/${file})`, publicId };
+  const buffer = await fs.readFile(path.join(siteAssets, file));
+  const localDir = args["local-media"] ? path.resolve(args["local-media"]) : null;
+  if (localDir) {
+    const target = path.join(localDir, `${publicId}.webp`);
+    await fs.mkdir(path.dirname(target), { recursive: true });
+    await fs.writeFile(target, await optimizeImageBuffer(buffer, { artwork: true }));
+    return { url: `${args["media-base"] || ""}/${publicId}.webp`, publicId };
+  }
+  const image = await uploadImage({ buffer, originalname: file }, FOLDERS.content, { publicId, artwork: true });
+  console.log(`  stored site-assets/${file}\n        -> ${image.url}`);
+  return image;
 }
 
 async function folderPhotos(folder) {
@@ -372,6 +392,16 @@ async function main() {
   fill(howToReach, "heroImages", chilla?.heroImages || [], "howToReach.heroImages");
   fill(howToReach, "heroBanner", chilla?.heroImage || "", "howToReach.heroBanner");
   fill(howToReach, "heroImageAlt", "How to reach Rajaji National Park", "howToReach.heroImageAlt");
+  if (!howToReach.mapImage) {
+    const map = await uploadSiteAsset("how-to-reach-route-map.png", "media-plan/how-to-reach/route-map");
+    set(howToReach, "mapImage", map.url, "howToReach.mapImage");
+  }
+  fill(
+    howToReach,
+    "mapImageAlt",
+    "Route map to Rajaji National Park: Delhi, Meerut, Roorkee, Haridwar, Rishikesh, Dehradun, Chilla and Wild Brook Retreat",
+    "howToReach.mapImageAlt"
+  );
   doc.markModified("howToReach");
 
   // ── Zones: SEO from each document, links the documents ask for ─────────────
