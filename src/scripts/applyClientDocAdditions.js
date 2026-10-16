@@ -138,6 +138,36 @@ function howToReachSection(blocks) {
   return blocks.slice(start, end < 0 ? undefined : end).filter((block) => !["cta", "gallery"].includes(block.t));
 }
 
+// The short lines under each drop-down entry of the site menu (the wording the
+// menu had before it moved to the CMS, plus lines for the new Activities pages).
+const NAV_DESCRIPTIONS = {
+  [PATHS.tickets]: "Entry fees, permits & safari charges",
+  [PATHS.zones]: "Overview of all 6 safari zones",
+  [PATHS.activities]: "Safari, bird watching, stay, rafting & trekking",
+  [PATHS.jeepSafari]: "4x4 open Gypsy forest safaris",
+  [PATHS.birdWatching]: "Hornbills, raptors & kingfishers",
+  [PATHS.stay]: "Forest Rest Houses & eco-cottages",
+  [PATHS.rafting]: "White-water rapids on the Ganges",
+  [PATHS.trekking]: "Chilla, Kunao, Phanduwala & Motichur trails",
+  [PATHS.wildlife]: "Biodiversity & ecosystems",
+  [PATHS.mammals]: "Tigers, elephants & leopards",
+  [PATHS.birds]: "Hornbills, eagles & kingfishers",
+  [PATHS.butterflies]: "Mud-puddling & Lepidoptera",
+  [PATHS.reptiles]: "King Cobras, pythons & monitors",
+  [PATHS.flora]: "Sal canopies & medicinal flora",
+};
+
+/** Fills drop-down entries that have no description; everything else in the menu is kept. */
+function withMenuDescriptions(menu) {
+  return menu.map((entry) => ({
+    ...entry,
+    children: (entry.children || []).map((child) => ({
+      ...child,
+      desc: child.desc || NAV_DESCRIPTIONS[child.path] || "",
+    })),
+  }));
+}
+
 function navigationFromStructure(structure, zones) {
   const zonePath = (slug) => `/${ZONE_SLUG_FROM_DOC[slug] || slug}`;
   const zoneBy = (slug) => zones.find((zone) => zone.slug === slug || zone.slug === ZONE_SLUG_FROM_DOC[slug]);
@@ -496,7 +526,13 @@ async function main() {
 
   // ── Settings: site menu and booking call-to-action wording ─────────────────
   const settings = doc.settings;
-  set(settings, "navigation", navigationFromStructure(docs.navigation, doc.safari.zones.map((zone) => zone.toObject())), "settings.navigation");
+  // The menu is built from the structure document once; after that it belongs
+  // to the admin panel, and reruns only fill descriptions that are still empty.
+  const currentMenu = (settings.navigation || []).map((entry) => entry.toObject());
+  const menu = currentMenu.length
+    ? currentMenu
+    : navigationFromStructure(docs.navigation, doc.safari.zones.map((zone) => zone.toObject()));
+  set(settings, "navigation", withMenuDescriptions(menu), "settings.navigation");
   const cta = settings.ctaCopy || {};
   const CTA_COPY = {
     title: "Book Your Rajaji Jeep Safari",
