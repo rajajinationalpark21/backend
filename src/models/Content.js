@@ -15,6 +15,29 @@ const text = (max = 2000) => ({ type: String, trim: true, maxlength: max, defaul
 // produced by tools/extract_client_docs.py and rendered by the site's DocContent.
 const docBlocks = () => ({ type: [Schema.Types.Mixed], default: [] });
 
+// What every page managed from the admin panel carries: its URL, its client
+// document, SEO settings taken from that document, and its photo gallery.
+const pageFields = () => ({
+  slug: text(200),
+  docTitle: text(300),
+  docBlocks: docBlocks(),
+  seoTitle: text(200),
+  metaDescription: text(500),
+  keywords: { type: [text(160)], default: [] },
+  heroImageAlt: text(300),
+  galleryTitle: text(200),
+  galleryImages: { type: [text(600)], default: [] },
+});
+
+/** Adds the page fields a section does not declare yet; existing paths are left as they are. */
+function withPageFields(schema) {
+  const missing = Object.fromEntries(
+    Object.entries(pageFields()).filter(([name]) => !schema.path(name))
+  );
+  schema.add(missing);
+  return schema;
+}
+
 const labelValueSchema = new Schema(
   { value: text(80), label: text(160) },
   { _id: false }
@@ -197,6 +220,39 @@ const settingsSectionSchema = new Schema(
         phone: text(40),
         copyright: text(300),
         developedBy: text(160),
+      },
+      { _id: false }
+    ),
+    // The site menu, in the order of the client's "Website structure" document.
+    navigation: {
+      type: [
+        new Schema(
+          {
+            label: text(120),
+            path: text(300),
+            children: {
+              type: [new Schema({ label: text(120), path: text(300), desc: text(200) }, { _id: false })],
+              default: [],
+            },
+          },
+          { _id: false }
+        ),
+      ],
+      default: [],
+    },
+    // Wording of the booking call-to-action bands shared by many pages.
+    ctaCopy: new Schema(
+      {
+        title: text(200),
+        subtitle: text(600),
+        badges: { type: [text(120)], default: [] },
+        primaryLabel: text(80),
+        secondaryLabel: text(80),
+        whatsappMessage: text(300),
+        disclaimer: text(600),
+        zoneSidebarKicker: text(120),
+        zoneSidebarText: text(400),
+        zoneCtaSubtitle: text(600),
       },
       { _id: false }
     ),
@@ -787,6 +843,46 @@ const bookingSectionSchema = new Schema(
   { _id: false }
 );
 
+// ── Activities sub-pages written from client documents ─────────────────────────
+const docPageSectionSchema = () =>
+  new Schema(
+    {
+      title: text(200),
+      subtitle: text(1000),
+      heroBanner: text(600),
+      heroBannerPublicId: text(300),
+      heroImages: { type: [text(600)], default: [] },
+      ...pageFields(),
+    },
+    { _id: false }
+  );
+
+[
+  homeSectionSchema, aboutSectionSchema, safariSectionSchema, birdsSectionSchema,
+  faunaSectionSchema, floraSectionSchema, butterfliesSectionSchema, reptilesSectionSchema,
+  parkRulesSectionSchema, ticketsSectionSchema, howToReachSectionSchema, staySectionSchema,
+  faqsSectionSchema, activitiesSectionSchema, raftingSectionSchema, bookingSectionSchema,
+  zoneItemSchema,
+].forEach(withPageFields);
+
+// The Wildlife & Biodiversity hub lives on the fauna section with a `hub` prefix.
+faunaSectionSchema.add({
+  hubSlug: text(200),
+  hubSeoTitle: text(200),
+  hubMetaDescription: text(500),
+  hubKeywords: { type: [text(160)], default: [] },
+  hubHeroImages: { type: [text(600)], default: [] },
+  hubGalleryImages: { type: [text(600)], default: [] },
+});
+
+// "How to Reach" is a page of its own in the client's site structure.
+howToReachSectionSchema.add({
+  title: text(200),
+  subtitle: text(1000),
+  heroBanner: text(600),
+  heroImages: { type: [text(600)], default: [] },
+});
+
 // ── Main Content Schema ────────────────────────────────────────────────────────
 const contentSchema = new Schema(
   {
@@ -809,6 +905,9 @@ const contentSchema = new Schema(
     activities: { type: activitiesSectionSchema, default: () => ({}) },
     rafting: { type: raftingSectionSchema, default: () => ({}) },
     booking: { type: bookingSectionSchema, default: () => ({}) },
+    jeepSafari: { type: docPageSectionSchema(), default: () => ({}) },
+    birdWatching: { type: docPageSectionSchema(), default: () => ({}) },
+    trekking: { type: docPageSectionSchema(), default: () => ({}) },
   },
   { timestamps: true }
 );
@@ -819,6 +918,7 @@ export const CONTENT_SECTIONS = [
   "parkRules", "tickets", "howToReach", "stay",
   "birdingAreas", "ecoTourism",
   "faqs", "activities", "rafting", "booking",
+  "jeepSafari", "birdWatching", "trekking",
 ];
 
 export const Content = mongoose.model("Content", contentSchema);

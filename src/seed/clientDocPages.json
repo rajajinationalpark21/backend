@@ -341,7 +341,30 @@
     {
      "t": "gallery"
     }
-   ]
+   ],
+   "seo": {
+    "title": "Chilla Jeep Safari | Chilla Range – Rajaji National Park",
+    "description": "Book a Chilla Jeep Safari in Rajaji National Park near Rishikesh. Explore forests, grasslands and riverine habitats and discover elephants and diverse wildlife.",
+    "slug": "chilla-jeep-safari",
+    "keywords": [
+     "Chilla Jeep Safari",
+     "Chilla Safari",
+     "Chilla Range Rajaji National Park",
+     "Rajaji Chilla Safari",
+     "Rajaji National Park Jeep Safari",
+     "Rishikesh Jeep Safari",
+     "Safari near Rishikesh",
+     "Haridwar Jeep Safari",
+     "Chilla Wildlife Safari"
+    ],
+    "alts": [
+     "Chilla Gate Rajaji National Park Jeep Safari",
+     "Chilla Jeep Safari in Rajaji National Park",
+     "Asian Elephant during Chilla Jeep Safari",
+     "Chilla Range forest landscape Rajaji National Park",
+     "Chilla Safari wildlife and forest landscape"
+    ]
+   }
   },
   "ranipur-gate-jeep-safari": {
    "title": "Haridwar Zone / Ranipur Gate – Rajaji National Park | Jeep Safari & Leopard Safari",
@@ -658,7 +681,39 @@
     {
      "t": "gallery"
     }
-   ]
+   ],
+   "seo": {
+    "title": "Rajaji National Park Jeep Safari | Ranipur Gate, Haridwar",
+    "description": "Book a Rajaji National Park Jeep Safari from Ranipur Gate, Haridwar. Explore Rajaji Tiger Reserve forests, elephants, deer, birds and leopard habitat.",
+    "slug": "ranipur-gate-jeep-safari",
+    "keywords": [
+     "Rajaji National Park Jeep Safari",
+     "Rajaji Jungle Safari",
+     "Rajaji Tiger Reserve Safari",
+     "Rajaji Jeep Safari",
+     "Ranipur Gate Jeep Safari",
+     "Ranipur Safari",
+     "Haridwar Jeep Safari",
+     "Haridwar Jungle Safari",
+     "Rajaji Safari Haridwar",
+     "Leopard Safari near Haridwar",
+     "Rajaji Leopard Safari",
+     "Jeep Safari in Rajaji National Park",
+     "Wildlife Safari in Haridwar",
+     "Rajaji National Park Safari Booking",
+     "Ranipur Gate Safari"
+    ],
+    "alts": [
+     "Rajaji National Park Jeep Safari from Ranipur Gate near Haridwar",
+     "Ranipur Gate Jeep Safari in Rajaji Tiger Reserve",
+     "Haridwar Jungle Safari at Ranipur Gate Rajaji National Park",
+     "Leopard habitat in Ranipur Zone Rajaji National Park",
+     "Asian Elephant habitat near Ranipur Gate Rajaji Tiger Reserve",
+     "Ranipur forest and grassland landscape Rajaji National Park",
+     "Wildlife Jeep Safari near Haridwar",
+     "Birdwatching during Ranipur Gate Jeep Safari"
+    ]
+   }
   },
   "chillawali-jeep-safari": {
    "title": "Chillawali Zone / Mohand Gate – Rajaji Jeep Safari | Leopard Safari",
@@ -938,7 +993,31 @@
     {
      "t": "gallery"
     }
-   ]
+   ],
+   "seo": {
+    "title": "Chillawali Jeep Safari | Mohand Gate Leopard Safari – Rajaji",
+    "description": "Book a Chillawali Jeep Safari through Mohand Gate, Rajaji National Park. Explore the Chillawali Range near Dehradun and discover its forests and wildlife.",
+    "slug": "chillawali-jeep-safari-mohand-gate",
+    "keywords": [
+     "Chillawali Jeep Safari",
+     "Mohand Gate Safari",
+     "Chillawali Safari",
+     "Mohand Safari Rajaji",
+     "Rajaji National Park Safari",
+     "Rajaji Leopard Safari",
+     "Mohand Gate Leopard Safari",
+     "Jeep Safari near Dehradun",
+     "Rajaji Mohand Gate Safari",
+     "Wildlife Safari near Dehradun"
+    ],
+    "alts": [
+     "Mohand Gate Rajaji National Park Jeep Safari",
+     "Chillawali Jeep Safari in Rajaji National Park",
+     "Chillawali Range forest landscape near Dehradun",
+     "Leopard habitat in Chillawali Range Rajaji National Park",
+     "Chillawali Safari wildlife and forest landscape"
+    ]
+   }
   },
   "motichur-jeep-safari": {
    "title": "Motichur Safari Zone – Rajaji National Park | Motichur Jeep Safari",
@@ -1147,7 +1226,31 @@
     {
      "t": "gallery"
     }
-   ]
+   ],
+   "seo": {
+    "title": "Motichur Jeep Safari | Motichur Zone – Rajaji National Park",
+    "description": "Book a Motichur Jeep Safari in Rajaji National Park near Haridwar, Rishikesh and Dehradun. Explore Sal forests, elephants, deer, birds and diverse wildlife.",
+    "slug": "motichur-jeep-safari",
+    "keywords": [
+     "Motichur Jeep Safari",
+     "Motichur Safari",
+     "Motichur Zone Rajaji National Park",
+     "Rajaji Motichur Safari",
+     "Rajaji National Park Jeep Safari",
+     "Haridwar Jeep Safari",
+     "Rishikesh Jeep Safari",
+     "Dehradun Jeep Safari",
+     "Wildlife Safari near Haridwar"
+    ],
+    "alts": [
+     "Motichur Gate Rajaji National Park Jeep Safari",
+     "Motichur Jeep Safari in Rajaji National Park",
+     "Asian Elephant during Motichur Jeep Safari",
+     "Motichur Sal forest landscape Rajaji National Park",
+     "Motichur Safari wildlife and forest landscape",
+     "Birdwatching during Motichur Jeep Safari"
+    ]
+   }
   },
   "jhilmil-jheel-safari": {
    "title": "Jhilmil Jheel Safari – Rajaji National Park",
@@ -1586,7 +1689,12 @@
     {
      "t": "gallery"
     }
-   ]
+   ],
+   "seo": {
+    "title": "Jhilmil Jheel Safari | Rajaji National Park Wildlife & Birdwatching",
+    "description": "Book Jhilmil Jheel Safari near Haridwar and explore Swamp Deer habitat, wetlands, grasslands, birds, elephants and riverine landscapes in Uttarakhand.",
+    "slug": "jhilmil-jheel-safari"
+   }
   },
   "gohri-range-safari": {
    "title": "Gohri Jungle Safari in Uttarakhand",
@@ -2555,7 +2663,34 @@
      }
     ]
    }
-  ]
+  ],
+  "seo": {
+   "title": "Rajaji National Park Jeep Safari – Tickets, Entry Fees & Charges",
+   "description": "Book Rajaji National Park Jeep Safari online. Check entry fees, safari charges, Jeep permit fees, timings and booking information for Rajaji Tiger Reserve.",
+   "slug": "rajaji-national-park-jeep-safari-tickets-entry-fees-charges",
+   "h1": "Rajaji National Park Jeep Safari – Tickets, Entry Fees & Safari Charges",
+   "keywords": [
+    "Rajaji National Park Jeep Safari",
+    "Rajaji National Park safari booking",
+    "Rajaji National Park tickets",
+    "Rajaji National Park entry fee",
+    "Rajaji National Park safari charges",
+    "Rajaji Tiger Reserve safari booking",
+    "Rajaji Jeep Safari booking",
+    "Rajaji Jeep Safari price",
+    "Rajaji National Park ticket price",
+    "Rajaji Tiger Reserve entry fee",
+    "Rajaji safari permit",
+    "Rajaji safari timings",
+    "Rajaji Jeep Safari from Haridwar",
+    "Rajaji Jeep Safari from Rishikesh",
+    "Chila Jeep Safari",
+    "Motichur Jeep Safari",
+    "Jhilmil Jeep Safari",
+    "Gohri Jeep Safari",
+    "Mohand Chillawali Jeep Safari"
+   ]
+  }
  },
  "wildlife": {
   "title": "Wildlife & Biodiversity of Rajaji Tiger Reserve",
@@ -2993,7 +3128,18 @@
     "t": "gallery",
     "title": "Butterflies of Rajaji – Photo Gallery"
    }
-  ]
+  ],
+  "seo": {
+   "keywords": [
+    "Butterflies of Rajaji National Park",
+    "Rajaji butterfly species",
+    "Butterflies of Rajaji Tiger Reserve",
+    "Rajaji National Park butterfly checklist",
+    "butterfly watching in Rajaji",
+    "butterfly photography Rajaji",
+    "Rajaji Jeep Safari"
+   ]
+  }
  },
  "flora": {
   "title": "Flora of Rajaji National Park",
@@ -3054,7 +3200,12 @@
     "t": "gallery",
     "title": "Flora of Rajaji – Photo Gallery"
    }
-  ]
+  ],
+  "seo": {
+   "title": "Flora of Rajaji National Park | Trees and Plants of Rajaji Tiger Reserve",
+   "description": "Explore the flora of Rajaji National Park, including Sal forests, Amaltas, Palash, Shisham, riverine vegetation and other native trees and plants.",
+   "slug": "flora-of-rajaji-national-park"
+  }
  },
  "mammals": {
   "title": "Mammals of Rajaji Tiger Reserve",
@@ -3107,7 +3258,15 @@
     "t": "gallery",
     "title": "Mammals of Rajaji – Photo Gallery"
    }
-  ]
+  ],
+  "seo": {
+   "title": "Mammals of Rajaji Tiger Reserve | Wildlife & Safari",
+   "description": "Explore the mammals of Rajaji Tiger Reserve, including Asian Elephant, Bengal Tiger, Leopard, Chital, Sambar, Wild Boar and other wildlife. Book a Rajaji Jeep Safari.",
+   "slug": "mammals-of-rajaji-tiger-reserve",
+   "keywords": [
+    "Mammals of Rajaji Tiger Reserve"
+   ]
+  }
  },
  "reptiles": {
   "title": "Reptiles of Rajaji Tiger Reserve",
@@ -3156,6 +3315,726 @@
     "t": "gallery",
     "title": "Reptiles of Rajaji – Photo Gallery"
    }
-  ]
- }
+  ],
+  "seo": {
+   "title": "Reptiles of Rajaji Tiger Reserve | Snakes, Lizards & Wildlife",
+   "description": "Explore reptiles of Rajaji Tiger Reserve, including Indian Cobra, King Cobra, Indian Rock Python, Common Krait and Indian Monitor Lizard. Discover Rajaji wildlife.",
+   "slug": "reptiles-of-rajaji-tiger-reserve",
+   "keywords": [
+    "Reptiles of Rajaji Tiger Reserve"
+   ]
+  }
+ },
+ "activities": {
+  "jeepSafari": {
+   "title": "Jeep Safari in Rajaji National Park, Uttarakhand",
+   "kicker": [],
+   "blocks": [
+    {
+     "t": "gallery"
+    },
+    {
+     "t": "p",
+     "text": "Rajaji National Park, located in the Shivalik foothills of Uttarakhand, is a popular destination for jeep safari, wildlife viewing, bird watching, and nature photography. The national park was formed in 1983 by bringing together the Rajaji, Motichur, and Chilla wildlife sanctuaries. In 2015, it became part of Rajaji Tiger Reserve, which covers approximately 1,075 sq. km, including its wider reserve area."
+    },
+    {
+     "t": "p",
+     "text": "A Rajaji National Park Jeep Safari offers visitors an opportunity to explore permitted forest routes, grasslands, and riverbeds in an open safari vehicle. Depending on the zone and wildlife activity, visitors may encounter Asian elephants, leopards, sloth bears, spotted deer, sambar, and a variety of birds. Wildlife sightings are not guaranteed."
+    },
+    {
+     "t": "p",
+     "text": "Located within convenient reach of Haridwar, Rishikesh, and Dehradun, Rajaji is suitable for a half-day wildlife experience or a longer nature holiday."
+    },
+    {
+     "t": "h2",
+     "text": "Rajaji Jeep Safari Booking – Step by Step"
+    },
+    {
+     "t": "p",
+     "text": "Booking your Jeep Safari in Rajaji National Park requires advance planning, especially during weekends, winter holidays, and the busy travel season."
+    },
+    {
+     "t": "h3",
+     "text": "1. Choose Your Safari Date, Zone and Shift"
+    },
+    {
+     "t": "p",
+     "text": "Select your preferred safari date, forest zone, and morning or afternoon shift. Zone availability may depend on the season, forest regulations, and permit quotas."
+    },
+    {
+     "t": "h3",
+     "text": "2. Share Guest Details"
+    },
+    {
+     "t": "p",
+     "text": "Provide each visitor’s full name, age, and valid identity document details. Foreign nationals may be required to provide passport details."
+    },
+    {
+     "t": "h3",
+     "text": "3. Check Availability and Confirm Booking"
+    },
+    {
+     "t": "p",
+     "text": "Contact our team to enquire about current availability, applicable charges, and booking requirements. Once the necessary details and payment are confirmed, we will share the booking confirmation and permit-related information available to us."
+    },
+    {
+     "t": "h3",
+     "text": "4. Arrive at the Safari Gate on Time"
+    },
+    {
+     "t": "p",
+     "text": "Reach the designated entry gate before the reporting time stated on your confirmation or permit. Carry the required original identity documents and follow the Forest Department’s entry instructions."
+    },
+    {
+     "t": "h2",
+     "text": "Plan Your Rajaji Jeep Safari"
+    },
+    {
+     "t": "p",
+     "text": "Advance booking is recommended for weekends, public holidays, and peak travel periods. Contact our team for assistance with safari zone selection, availability, booking requirements, and permitted safari options."
+    },
+    {
+     "t": "contact",
+     "phones": [
+      "+91 98298 50501",
+      "+91 99829 07130"
+     ]
+    }
+   ]
+  },
+  "birdWatching": {
+   "title": "Bird Watching in Rajaji National Park, Uttarakhand",
+   "kicker": [],
+   "blocks": [
+    {
+     "t": "p",
+     "text": "Rajaji National Park (Rajaji Tiger Reserve) in Uttarakhand is a rewarding destination for bird watching, bird photography and nature exploration. Located at the junction of the Western and Central Himalayas, the reserve features diverse habitats, including Sal forests, mixed deciduous woodlands, riverine habitats, grasslands and wetlands. These ecosystems support more than 300 recorded bird species, including resident birds, winter migrants and altitudinal visitors."
+    },
+    {
+     "t": "p",
+     "text": "From colourful forest birds and majestic hornbills to raptors, kingfishers and migratory species, Rajaji offers excellent opportunities for bird watching amid the scenic Shivalik foothills. Winter is particularly rewarding for observing seasonal visitors, although sightings depend on weather, habitat conditions and bird movements."
+    },
+    {
+     "t": "h2",
+     "text": "Best Places for Bird Watching in Rajaji Tiger Reserve"
+    },
+    {
+     "t": "p",
+     "text": "**Chilla Forest Drive:** The approximately 26 km forest drive passes through grasslands, mixed forests and river-associated habitats, offering opportunities to observe woodland birds, raptors and other species."
+    },
+    {
+     "t": "p",
+     "text": "Phanduwala–Kansrao–Motichur Forest Landscape: These forested landscapes feature diverse vegetation and habitats suitable for observing barbets, woodpeckers, flycatchers, minivets and other forest birds."
+    },
+    {
+     "t": "p",
+     "text": "**Suswa River and Mathurawala Wetlands:** Riverine habitats and wetlands in the wider Dehradun landscape attract water-associated birds and species inhabiting adjoining vegetation."
+    },
+    {
+     "t": "p",
+     "text": "Access to forest routes and gates, including Asarori and Ramgarh, is subject to current Forest Department permissions, regulations and seasonal conditions."
+    },
+    {
+     "t": "h2",
+     "text": "Target Bird Species of Rajaji National Park"
+    },
+    {
+     "t": "p",
+     "text": "Rajaji Tiger Reserve supports a diverse assemblage of birds across its forest, grassland and riverine habitats. Representative species include:"
+    },
+    {
+     "t": "ul",
+     "items": [
+      "**Hornbills, Barbets and Woodpeckers:** Great Hornbill, Oriental Pied Hornbill, Great Barbet, Blue-throated Barbet, White-naped Woodpecker and Great Slaty Woodpecker.",
+      "**Raptors and Owls:** Crested Serpent Eagle, Changeable Hawk-Eagle, Crested Hawk-Eagle, Northern Goshawk, Himalayan Buzzard, Common Kestrel, Peregrine Falcon, Long-legged Buzzard, Steppe Eagle, Tawny Fish Owl, Brown Fish Owl and Jungle Owlet.",
+      "**Kingfishers, Storks and Waterbirds:** Greater Scaup, Black-bellied Tern, Black Stork, Black-necked Stork, Stork-billed Kingfisher, Pied Kingfisher, Common Kingfisher, Common Greenshank, River Lapwing and River Tern.",
+      "**Pigeons, Doves and Parakeets:** Wedge-tailed Green Pigeon, Emerald Dove, Plum-headed Parakeet, Slaty-headed Parakeet and Sirkeer Malkoha.",
+      "**Other Forest Birds:** Yellow-billed Blue Magpie, Red-billed Blue Magpie, Common Green Magpie, Scarlet Minivet, Long-tailed Minivet, Spangled Drongo, Black-hooded Oriole, Maroon Oriole, Yellow-bellied Fantail, Black-crested Bulbul, Velvet-fronted Nuthatch, Red-billed Leiothrix and Wallcreeper.",
+      "**Thrushes, Flycatchers and Warblers:** Scaly Thrush, Chestnut-billed Rock Thrush, Snowy-browed Flycatcher, Red-breasted Flycatcher, Taiga Flycatcher, Rufous-bellied Niltava, Pale-footed Bush Warbler and Tytler's Leaf Warbler. Other species of interest include the Rusty-flanked Treecreeper, White-capped Redstart and Plumbeous Water Redstart.",
+      "**Finches and Seasonal Visitors:** Yellow-breasted Greenfinch, Green Avadavat, Red Avadavat, Reed Bunting and Rosy Starling."
+     ]
+    },
+    {
+     "t": "p",
+     "text": "The species listed are representative examples; individual occurrence and seasonal presence should be verified against reliable regional bird records."
+    },
+    {
+     "t": "h2",
+     "text": "Best Season for Bird Watching in Rajaji"
+    },
+    {
+     "t": "p",
+     "text": "Bird watching is rewarding throughout suitable viewing periods, with winter often attracting additional migratory species. Other seasons offer opportunities to observe resident birds, breeding activity and seasonal changes in bird behaviour. The best time depends on target species, weather and permitted access."
+    },
+    {
+     "t": "h2",
+     "text": "Bird Photography and Responsible Bird Watching"
+    },
+    {
+     "t": "p",
+     "text": "Rajaji's diverse habitats offer attractive opportunities for bird photography and nature observation."
+    },
+    {
+     "t": "ul",
+     "items": [
+      "Carry binoculars and a suitable camera.",
+      "Wear muted clothing and maintain a respectful distance from birds.",
+      "Avoid disturbing nesting birds or using playback calls inappropriately.",
+      "Never feed, chase or handle wildlife.",
+      "Follow authorised guides' instructions and remain on permitted routes."
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Bird sightings cannot be guaranteed and depend on season, weather, habitat conditions and natural bird movements."
+    },
+    {
+     "t": "h2",
+     "text": "Plan Your Rajaji Bird-Watching Experience"
+    },
+    {
+     "t": "p",
+     "text": "Explore the rich birdlife of Rajaji National Park through responsible bird watching and nature photography. Advance planning can help you select suitable routes and understand current access requirements."
+    },
+    {
+     "t": "h3",
+     "text": "Bird-Watching Packages and Enquiries"
+    },
+    {
+     "t": "p",
+     "text": "Bird-watching and wildlife tour packages are available on request."
+    },
+    {
+     "t": "p",
+     "text": "Dr. Chaturbhuj"
+    },
+    {
+     "t": "contact",
+     "phones": [
+      "+91 98298 50501",
+      "+91 99829 07130"
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Contact our team for package details, route guidance, availability and booking assistance."
+    },
+    {
+     "t": "p",
+     "text": "**Disclaimer:** This is a privately operated booking assistance website and is not an official government website. Access to protected forest routes is subject to Forest Department permissions and applicable regulations. Wildlife sightings cannot be guaranteed."
+    }
+   ],
+   "seo": {
+    "title": "Rajaji National Park Bird Watching & Jungle Safari",
+    "description": "Book a half-day bird-watching experience or jungle safari in Rajaji National Park, Uttarakhand. Check safari timings, charges and booking requirements.",
+    "slug": "rajaji-national-park-bird-watching-jungle-safari",
+    "keywords": [
+     "Bird watching in Rajaji National Park",
+     "Rajaji jungle safari booking"
+    ],
+    "alts": [
+     "Bird watching and forest habitats in Rajaji National Park, Uttarakhand"
+    ]
+   }
+  },
+  "stay": {
+   "title": "Stay in Rajaji National Park, Uttarakhand",
+   "kicker": [],
+   "blocks": [
+    {
+     "t": "p",
+     "text": "Discover comfortable stays near **Rajaji National Park and Rajaji Tiger Reserve**. Choose from forest rest houses, nature retreats, resorts, hotels, and guest houses near popular safari zones. Whether you are planning a Rajaji jeep safari, bird-watching tour, wildlife photography trip, or nature holiday, find accommodation to suit your travel plans and budget."
+    },
+    {
+     "t": "h2",
+     "text": "1. Forest Rest Houses (FRHs)"
+    },
+    {
+     "t": "p",
+     "text": "Forest Rest Houses offer a nature-focused stay at selected locations within or near the forest landscape. Facilities, access permissions, and booking procedures vary by property. Contact the concerned Forest Department office to confirm current availability and reservation rules."
+    },
+    {
+     "t": "p",
+     "text": "**Forest Rest Houses include:**"
+    },
+    {
+     "t": "ul",
+     "items": [
+      "Dholkhand Forest Rest House",
+      "Beribara Forest Rest House",
+      "Chilla Forest Rest House",
+      "Ranipur Forest Rest House",
+      "Kansrao Forest Rest House",
+      "Kunnao Forest Rest House",
+      "Motichur Forest Rest House",
+      "Phandowala Forest Rest House",
+      "Satyanarayan Forest Rest House",
+      "Asharori Forest Rest House"
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Availability and operational status must be confirmed with the relevant authorities before booking."
+    },
+    {
+     "t": "h2",
+     "text": "2. Resorts and Nature Retreats"
+    },
+    {
+     "t": "p",
+     "text": "Resorts and nature retreats near Rajaji offer comfortable accommodation for families, couples, bird watchers, and wildlife enthusiasts."
+    },
+    {
+     "t": "h3",
+     "text": "Wild Brook Retreat"
+    },
+    {
+     "t": "p",
+     "text": "Located near the Gohri forest landscape in the Bukundi area, Wild Brook Retreat offers cottage accommodation in a natural setting. Guests can enquire about available facilities, bird-watching opportunities, nature activities, and safari arrangements."
+    },
+    {
+     "t": "h2",
+     "text": "3. GMVN Chilla Tourist Rest House"
+    },
+    {
+     "t": "p",
+     "text": "The GMVN Tourist Rest House at Chilla is an accommodation option for visitors exploring the Chilla safari area and nearby attractions. Contact GMVN to confirm room availability, facilities, and booking procedures."
+    },
+    {
+     "t": "h2",
+     "text": "4. Hotels and Guest Houses"
+    },
+    {
+     "t": "p",
+     "text": "Haridwar, Rishikesh, and Dehradun offer a wide range of hotels and guest houses for different budgets. These locations are also convenient for visitors combining a Rajaji safari with sightseeing, religious tourism, adventure activities, and nature excursions."
+    },
+    {
+     "t": "h2",
+     "text": "Where to Stay Near Your Rajaji Safari Zone"
+    },
+    {
+     "t": "ul",
+     "items": [
+      "**Chilla Zone:** Consider accommodation in Chilla or Haridwar.",
+      "**Motichur and Ranipur**: Explore stays in Haridwar and surrounding areas.",
+      "**Mohand–Chillawali**: Choose accommodation convenient to your designated entry gate along the Dehradun–Haridwar route.",
+      "**Gohri Area:** Explore accommodation around Rishikesh and the relevant safari access routes."
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Confirm your safari entry gate and reporting time before booking your stay."
+    },
+    {
+     "t": "h2",
+     "text": "Book Your Stay and Rajaji Jeep Safari"
+    },
+    {
+     "t": "p",
+     "text": "Plan your accommodation and **Rajaji National Park jeep safari booking** together for a smoother wildlife holiday. Our team can assist with safari availability, zone selection, accommodation enquiries, and booking requirements."
+    },
+    {
+     "t": "contact",
+     "phones": [
+      "+91 98298 50501",
+      "+91 99829 07130"
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Share your travel dates, number of guests, preferred budget, and safari zone to enquire about suitable options."
+    },
+    {
+     "t": "h2",
+     "text": "Best Time to Visit Rajaji National Park"
+    },
+    {
+     "t": "p",
+     "text": "The best time to plan your stay depends on your travel interests, weather preferences, and intended activities. Cooler months are popular for outdoor exploration, while bird-watching opportunities vary seasonally. Safari operations and forest access depend on official schedules, weather, and local regulations."
+    },
+    {
+     "t": "p",
+     "text": "Advance booking is recommended during holidays and peak travel periods."
+    },
+    {
+     "t": "gallery"
+    }
+   ],
+   "seo": {
+    "title": "Stay Near Rajaji National Park | Resorts, Hotels & Forest Rest Houses",
+    "description": "Find resorts, hotels, forest rest houses and nature retreats near Rajaji National Park, Uttarakhand. Plan your stay and enquire about Rajaji jeep safari booking.",
+    "slug": "stay-near-rajaji-national-park"
+   }
+  },
+  "rafting": {
+   "title": "River Rafting in Rishikesh, Uttarakhand",
+   "kicker": [],
+   "blocks": [
+    {
+     "t": "gallery"
+    },
+    {
+     "t": "p",
+     "text": "Experience the thrill of **river rafting in Rishikesh**, one of Uttarakhand’s most popular adventure activities. Set along the scenic River Ganga, Rishikesh offers rafting experiences ranging from relatively gentle stretches for beginners to challenging rapids for adventure enthusiasts."
+    },
+    {
+     "t": "p",
+     "text": "Whether you are planning a family outing, a trip with friends, or an adrenaline-filled adventure, you can choose a rafting route based on your experience level, preferred distance, and prevailing river conditions."
+    },
+    {
+     "t": "h2",
+     "text": "1. Brahmpuri Rafting – 9 km"
+    },
+    {
+     "t": "p",
+     "text": "An introductory rafting option for beginners and suitable families, when permitted conditions allow. This shorter stretch offers a chance to enjoy the river and surrounding scenery."
+    },
+    {
+     "t": "p",
+     "text": "**Approximate price:** ₹1200 per person\n**Typical duration:** Around 1–1.5 hours"
+    },
+    {
+     "t": "h2",
+     "text": "2. Shivpuri Rafting – 16 km"
+    },
+    {
+     "t": "p",
+     "text": "One of the most popular rafting options near Rishikesh, Shivpuri offers a mix of rapids and scenic stretches. It is a popular choice for visitors looking for a more adventurous experience."
+    },
+    {
+     "t": "p",
+     "text": "**Approximate price:** ₹1,500 per person\n**Typical duration:** Around 1.5–2 hours"
+    },
+    {
+     "t": "h2",
+     "text": "3. Marine Drive Rafting – 24–25 km"
+    },
+    {
+     "t": "p",
+     "text": "This longer rafting experience combines extended time on the river with a variety of rapids and beautiful views of the surrounding landscape."
+    },
+    {
+     "t": "p",
+     "text": "**Approximate price:** ₹2000 per person\n**Typical duration:** Around 2.5–3 hours"
+    },
+    {
+     "t": "h2",
+     "text": "4. Kaudiyala Rafting – Longer Routes"
+    },
+    {
+     "t": "p",
+     "text": "Longer rafting itineraries in the Kaudiyala area may include more demanding rapids and are intended for eligible participants under suitable river conditions. Route availability and rapid grades depend on the authorised itinerary and current conditions."
+    },
+    {
+     "t": "p",
+     "text": "**Approximate price:** ₹2,800 onwards per person"
+    },
+    {
+     "t": "p",
+     "text": "Prices and durations are indicative only. Confirm the actual route distance, inclusions, eligibility requirements, and current rates with an authorised rafting operator."
+    },
+    {
+     "t": "h2",
+     "text": "Best Time for River Rafting in Rishikesh"
+    },
+    {
+     "t": "p",
+     "text": "The rafting season generally operates from late September or October through June, subject to river conditions and official permissions. Rafting is usually suspended during the peak monsoon period."
+    },
+    {
+     "t": "ul",
+     "items": [
+      "**October–November:** Enjoy the post-monsoon landscape when rafting operations are permitted.",
+      "**December–February:** Cooler weather; check operating schedules and conditions in advance.",
+      "**March–May:** Popular months for outdoor adventure and warmer weather.",
+      "**June:** Availability depends on river conditions and the authorised operating schedule."
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Always confirm the current season dates before planning your trip."
+    },
+    {
+     "t": "h2",
+     "text": "River Rafting Safety Guidelines"
+    },
+    {
+     "t": "p",
+     "text": "Your safety should always come first when rafting on the River Ganga."
+    },
+    {
+     "t": "ul",
+     "items": [
+      "Wear the approved life jacket and helmet provided by the operator.",
+      "Attend the safety briefing and follow your guide’s instructions.",
+      "Confirm age, weight, and other eligibility requirements before booking.",
+      "Inform the operator about any relevant health or mobility concerns.",
+      "Do not enter the river or attempt rafting independently.",
+      "Use photography or GoPro services only where permitted and arranged safely."
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Swimming requirements and participant eligibility vary by route and applicable rules. Follow the operator’s current instructions."
+    },
+    {
+     "t": "h2",
+     "text": "Which Rishikesh Rafting Route Is Right for You?"
+    },
+    {
+     "t": "ul",
+     "items": [
+      "**Beginners:** Consider the shorter Brahmpuri stretch, subject to eligibility and operating conditions.",
+      "**Adventure seekers:** Shivpuri is a popular choice for a balance of rapids and river scenery.",
+      "**Longer rafting experiences:** Explore Marine Drive options.",
+      "**Experienced participants:** Ask an authorised operator about available longer routes and their difficulty levels."
+     ]
+    },
+    {
+     "t": "h2",
+     "text": "Plan Your Rishikesh Adventure"
+    },
+    {
+     "t": "p",
+     "text": "Make your visit to Rishikesh memorable with a river rafting experience suited to your interests and abilities. Check route availability, current prices, safety requirements, and operating permissions before confirming your booking."
+    },
+    {
+     "t": "p",
+     "text": "**Note:** River rafting is an outdoor adventure activity. Operations may be suspended or changed because of weather, water levels, safety considerations, or government instructions."
+    }
+   ],
+   "seo": {
+    "title": "River Rafting in Rishikesh | Routes, Prices & Best Time",
+    "description": "Plan river rafting in Rishikesh, Uttarakhand. Explore Brahmpuri, Shivpuri, Marine Drive and longer routes, with indicative prices, seasonal guidance and safety tips.",
+    "slug": "river-rafting-rishikesh"
+   }
+  },
+  "trekking": {
+   "title": "Trekking Trails in Rajaji National Park, Uttarakhand",
+   "kicker": [],
+   "blocks": [
+    {
+     "t": "gallery"
+    },
+    {
+     "t": "p",
+     "text": "Rajaji National Park, located in Uttarakhand, is famous for its beautiful forest landscapes, rich biodiversity, and wildlife, including Asian elephants, tigers, leopards, and many bird species. The park’s surrounding forest landscapes offer opportunities for nature exploration and trekking where access is permitted."
+    },
+    {
+     "t": "h2",
+     "text": "Popular Trekking Areas"
+    },
+    {
+     "t": "ul",
+     "items": [
+      "**Chilla to Kunao:** Explore the scenic forest landscape around the Chilla and Kunao areas.",
+      "**Phanduwala:** Discover the natural beauty and forest surroundings of the Phanduwala landscape.",
+      "**Ranipur Range:** Experience the forest scenery and biodiversity of the Ranipur area.",
+      "**Kansrao:** Explore the forest landscape and natural surroundings near Kansrao.",
+      "**Motichur Range:** Discover the woodland habitats and wildlife-rich surroundings of the Motichur area."
+     ]
+    },
+    {
+     "t": "note",
+     "label": "Important",
+     "text": "Trekking routes and access inside or around Rajaji National Park are subject to Forest Department permission, local regulations, and seasonal conditions. Please confirm whether your preferred route is open and permitted before planning your trek."
+    },
+    {
+     "t": "h2",
+     "text": "Explore Rajaji’s Wilderness"
+    },
+    {
+     "t": "p",
+     "text": "Rajaji National Park offers nature lovers opportunities to appreciate Uttarakhand’s forests, wildlife, and scenic landscapes. Visitors can combine permitted nature walks or trekking experiences with authorised jeep safaris, where available, for a memorable outdoor experience."
+    },
+    {
+     "t": "p",
+     "text": "Plan Your Rajaji Adventure"
+    },
+    {
+     "t": "p",
+     "text": "For information about available experiences, route guidance, and safari booking assistance, contact our team."
+    },
+    {
+     "t": "contact",
+     "phones": [
+      "+91 98298 50501",
+      "+91 99829 07130"
+     ]
+    },
+    {
+     "t": "p",
+     "text": "**Disclaimer:** This is a privately operated tourism and booking assistance website, not an official government website. Trekking access and safari activities depend on applicable permissions, Forest Department regulations, and local conditions."
+    }
+   ]
+  }
+ },
+ "terms": {
+  "title": "Safari Terms & Conditions – Cancellation & Refund Policy",
+  "kicker": [],
+  "blocks": [
+   {
+    "t": "p",
+    "text": "**1. Arrival at Gate**\nGuests must reach the designated safari gate **at least 20 minutes before the scheduled reporting/last entry time** mentioned on the safari permit or confirmation."
+   },
+   {
+    "t": "p",
+    "text": "**2. Late Arrival**\nGuests arriving after the permitted entry or reporting time **may be denied entry**. In such cases, the safari fee **will not be refundable**."
+   },
+   {
+    "t": "p",
+    "text": "**3. Final Safari Timing**\nGuests are advised to **check the final date, timing, zone and reporting details mentioned on their safari permit or booking confirmation** before travelling."
+   },
+   {
+    "t": "p",
+    "text": "**4. Student Concession**\nStudent concessions are available only for **recognised institutional educational tours**, subject to applicable Forest Department rules, eligibility and approval."
+   },
+   {
+    "t": "p",
+    "text": "**5. Children**\n**Children above 11 years** will be charged the applicable park entry fee, subject to the **prevailing rules and regulations**."
+   },
+   {
+    "t": "p",
+    "text": "**6. Nature Guide**\nAn **authorised nature guide/local guide is mandatory** with each safari vehicle wherever required under the applicable park and Forest Department regulations."
+   },
+   {
+    "t": "p",
+    "text": "**7. Permit Changes, Cancellations & Refunds**\nOnce a safari permit has been issued, **changes to the safari date, slot or zone may not be permitted**, subject to the rules of the concerned Forest Department."
+   },
+   {
+    "t": "p",
+    "text": "Any cancellation, modification or refund request will be handled **strictly according to the applicable Forest Department/park rules and the terms applicable to the booking**. Where the applicable rules do not permit a refund or change, **no refund will be provided**."
+   },
+   {
+    "t": "p",
+    "text": "**8. Safari Cancellation Due to Circumstances Beyond Our Control**\nIf a safari is cancelled, suspended or does not operate due to **natural calamities, adverse weather conditions, government or Forest Department restrictions, wildlife-related safety concerns, park closure, or other circumstances beyond our control**, no refund will be provided. Safari operations are subject to the rules, regulations and decisions of the concerned Forest Department and park authorities."
+   },
+   {
+    "t": "h2",
+    "text": "Do’s & Don’ts"
+   },
+   {
+    "t": "h3",
+    "text": "✅ Do’s"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Obtain the required permits before entering the Park and strictly follow all Forest Department rules and regulations.",
+     "Use the services of an authorised Nature Guide. Trained guides can assist with wildlife sightings, interpretation and safe navigation through the forest.",
+     "Drive slowly and carefully. A slow and quiet safari allows you to observe wildlife and enjoy the natural surroundings without causing unnecessary disturbance.",
+     "Stay on designated roads and safari trails. Do not drive off-track, as this can damage vegetation and disturb resting animals or their young.",
+     "Maintain a safe distance from wildlife. Respect wild animals and remember that the forest is their natural home.",
+     "Keep noise to a minimum. Switch off car stereos and avoid loud conversations so that you can enjoy the natural sounds of the forest and improve your chances of observing wildlife.",
+     "Wear natural or subdued colours where possible, as bright colours may disturb or attract the attention of wildlife.",
+     "Carry a camera and binoculars to enjoy and photograph wildlife responsibly."
+    ]
+   },
+   {
+    "t": "h3",
+    "text": "❌ Don’ts"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Do not carry firearms or other prohibited items into the Park.",
+     "Do not smoke or light fires inside the forest. Even a small accidental fire can cause serious damage to wildlife and vegetation.",
+     "Do not get out of your safari vehicle except at officially designated and permitted locations.",
+     "Do not feed, chase, tease or attempt to attract wildlife.",
+     "Do not expect to see wildlife at every moment. Rajaji is a natural forest, not a zoo; enjoy its forests, rivers, grasslands and landscapes as well as its wildlife.",
+     "Do not be disappointed if you do not see a tiger. Wildlife sightings are unpredictable, and every safari offers an opportunity to experience different species and natural habitats.",
+     "Alcohol and non-vegetarian food are not permitted inside the Park, subject to applicable Park regulations.",
+     "Do not litter. Carry all non-biodegradable waste, including plastic, cans, glass bottles, wrappers and metal foils, back with you and dispose of it at the designated facility outside the Park.",
+     "Do not disturb the natural environment. Avoid plucking flowers, damaging plants, collecting natural materials or otherwise altering the forest."
+    ]
+   },
+   {
+    "t": "p",
+    "text": "Choose your preferred safari zone, date and time, and get your **Rajaji Jungle Safari booking confirmation within the hour**, subject to permit availability"
+   }
+  ],
+  "seo": {
+   "title": "Rajaji Jeep Safari Terms & Conditions, Cancellation & Refund Policy",
+   "description": "Read Rajaji Jeep Safari terms and conditions, cancellation and refund policy, safari rules, permits, arrival timings, nature guide requirements and booking guidelines.",
+   "slug": "rajaji-jeep-safari-terms-conditions-cancellation-refund",
+   "h1": "Rajaji Jeep Safari Terms & Conditions – Cancellation, Refund & Safari Rules",
+   "keywords": [
+    "Rajaji Jeep Safari Terms & Conditions",
+    "Rajaji National Park safari rules",
+    "Rajaji safari cancellation policy",
+    "Rajaji Jeep Safari refund policy",
+    "Rajaji safari booking terms",
+    "Rajaji National Park entry rules",
+    "Rajaji safari permit rules",
+    "Rajaji Jeep Safari guidelines",
+    "Rajaji Tiger Reserve safari rules"
+   ]
+  }
+ },
+ "navigation": [
+  {
+   "label": "Home About Rajaji",
+   "children": []
+  },
+  {
+   "label": "Rajaji National Park Tickets, Entry Fees & Safari Charges",
+   "children": [
+    "Rajaji Safari Terms & Conditions – Cancellation, Refunds & Safari Rules"
+   ]
+  },
+  {
+   "label": "Jungle Safari/Jeep Safari Zones",
+   "children": [
+    "Chilla",
+    "Haridwar/ Ranipur",
+    "Chillawali/Mohand",
+    "Motichur",
+    "Jhilmil Jheel Safari Zone & Conservation Reserve",
+    "Gohri Range",
+    "Chaurasi Kutiya"
+   ]
+  },
+  {
+   "label": "Activities at Rajaji",
+   "children": [
+    "Jungle safari/Jeep safari",
+    "Bird watching",
+    "Stay in Rajaji",
+    "Rafting",
+    "treeking in Rajaji"
+   ]
+  },
+  {
+   "label": "Wildlife & Biodiversity",
+   "children": [
+    "Mammals of Rajaji",
+    "Birds of Rajaji",
+    "Butterflies of Rajaji",
+    "Reptiles of Rajaji",
+    "Flora of Rajaji"
+   ]
+  },
+  {
+   "label": "How to Reach",
+   "children": []
+  },
+  {
+   "label": "Book Now",
+   "children": [
+    "Booking form"
+   ]
+  },
+  {
+   "label": "Contact us",
+   "children": []
+  },
+  {
+   "label": "Blog",
+   "children": []
+  },
+  {
+   "label": "FAQ",
+   "children": []
+  }
+ ]
 }

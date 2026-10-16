@@ -60,6 +60,10 @@ const IMAGE_FIELD_READERS = {
   flora: (payload) => [payload.heroBanner],
   butterflies: (payload) => [payload.heroBanner],
   booking: (payload) => [payload.heroBanner],
+  jeepSafari: (payload) => [payload.heroBanner],
+  birdWatching: (payload) => [payload.heroBanner],
+  trekking: (payload) => [payload.heroBanner],
+  howToReach: (payload) => [payload.heroBanner],
   settings: () => [],
 };
 

@@ -26,6 +26,7 @@ OUT = Path(__file__).resolve().parents[1] / "src" / "seed" / "clientDocPages.jso
 
 ZONES = "PAGE - Jungle Safari Jeep Safari Zones"
 WILDLIFE = "PAGE - Wildlife & Biodiversity"
+ACTIVITIES = "Page - Activities at Rajaji"
 PAGES = {
     "zones": {
         "chilla-jeep-safari": f"{ZONES}/Jeep safari Jungle safari Chilla.docx",
@@ -44,14 +45,105 @@ PAGES = {
     "flora": f"{WILDLIFE}/Sub-page - Flora of Rajaji.docx",
     "mammals": f"{WILDLIFE}/Sub-page - Mammals of Rajaji.docx",
     "reptiles": f"{WILDLIFE}/Sub-page - Reptiles of Rajaji.docx",
+    "activities": {
+        "jeepSafari": f"{ACTIVITIES}/Sub-page - Jungle (Jeep) safari/Jungle (Jeep) safari.docx",
+        "birdWatching": f"{ACTIVITIES}/Sub-page ─ Bird watching/Sub-page ─ Bird watching.docx",
+        "stay": f"{ACTIVITIES}/Sub-page - Stay in Rajaji/Stay in Rajaji.docx",
+        "rafting": f"{ACTIVITIES}/Sub-page ─ Rafting/Rafting.docx",
+        "trekking": f"{ACTIVITIES}/Sub-page - Trekking in Rajaji/Trekking in Rajaji.docx",
+    },
+    # Its clauses are kept in the tickets section; read here for its SEO title and H1.
+    "terms": "PAGE - Ticket and Entry/Rajaji Safari Terms & Conditions.docx",
 }
+STRUCTURE = "safari Website structure.docx"
 
 # Everything from the first matching line onwards is notes for the web team.
 STOP = re.compile(
     r"^(SEO Information|Strong SEO setup|SEO title:|SEO suggestions|One SEO point|One important SEO"
-    r"|Primary keyword|Recommended Image Alt Text|Footer me\b)",
+    r"|(Recommended )?SEO settings|Primary keyword|Recommended Image Alt Text|Footer me\b)",
     re.I,
 )
+
+# The SEO notes after STOP: "Key:" lines, with the value on the same line or the lines below.
+SEO_KEYS = [
+    ("title", r"seo title"),
+    ("altTitle", r"alternative seo title"),
+    ("description", r"meta description"),
+    ("slug", r"suggested url|url slug"),
+    ("h1", r"h1"),
+    ("primary", r"primary keywords?"),
+    ("secondary", r"secondary( / supporting)? keywords"),
+    ("longTail", r"long-tail keywords"),
+    ("alts", r"(recommended|suggested) image alt text"),
+    ("cta", r"suggested cta"),
+    ("_skip", r"seo information|strong seo setup|(recommended )?seo settings|seo suggestions for website"
+              r"|strong h2 structure|internal-link structure|use these links naturally within the page"),
+]
+SEO_PATTERNS = [(key, re.compile(rf"^(?:{pattern})\s*:?\s*(?P<rest>.*)$", re.I)) for key, pattern in SEO_KEYS]
+
+
+def seo_key(line):
+    for key, pattern in SEO_PATTERNS:
+        match = pattern.match(line)
+        if match:
+            return key, match.group("rest").strip()
+    return None, None
+
+
+def parse_seo(lines):
+    """SEO title, description, URL, H1, keywords and image alt texts from a document's SEO notes."""
+    values, current = {}, None
+    for line in lines:
+        line = line.replace("**", "").strip()
+        if not line:
+            continue
+        key, rest = seo_key(line)
+        if key:
+            current = key
+            if rest and key != "_skip":
+                values.setdefault(key, []).append(rest)
+        elif current and current != "_skip":
+            values.setdefault(current, []).append(line)
+
+    def one(key):
+        return " ".join(values.get(key, [])[:1]).strip()
+    def many(*keys):
+        out = []
+        for key in keys:
+            for value in values.get(key, []):
+                for part in re.split(r"\s*[;,]\s*", value.rstrip(".")) if key != "alts" else [value]:
+                    part = part.strip()
+                    if part and part not in out:
+                        out.append(part)
+        return out
+    seo = {
+        "title": one("title"),
+        "description": one("description"),
+        "slug": one("slug").strip().strip("/"),
+        "h1": one("h1"),
+        "keywords": many("primary", "secondary"),
+        "alts": many("alts"),
+    }
+    return {k: v for k, v in seo.items() if v}
+
+
+def extract_structure(path):
+    """The site menu from the "Website structure" document: pages and their sub-pages, in order."""
+    document = docx.Document(path)
+    menu = []
+    for para in document.paragraphs:
+        text = re.sub(r"\s+", " ", para.text).strip()
+        if not text or text.lower() in ("website structure", "headings"):
+            continue
+        sub = re.match(r"^Sub-page\s*[─–-]\s*(.+)$", text, re.I)
+        page = re.match(r"^Page\s*[─–-]\s*(.+)$", text, re.I)
+        if sub and menu:
+            menu[-1]["children"].append(sub.group(1).strip())
+        elif para.style.name.startswith("List") and menu:
+            menu[-1]["children"].append(text)
+        else:
+            menu.append({"label": (page.group(1) if page else text).strip(), "children": []})
+    return menu
 DEVANAGARI = re.compile(r"\(?[ऀ-ॿ][ऀ-ॿ\s,।]*\)?,?")
 LINK_NOTE = re.compile(
     r"\[\s*(Create\s+)?(Internal\s+Link|Booking\s+(Form\s+)?Link)\s*\]|create (link )?call (button|&|and)[^.]*$"
@@ -272,8 +364,14 @@ def extract(path):
                 title += " – Photo Gallery"
         push({"t": "gallery", **({"title": title} if title else {})})
 
+    seo_lines = None
     for element in document.element.body.iterchildren():
         tag = element.tag.split("}")[1]
+        if seo_lines is not None:
+            # Past the SEO marker: keep the notes' text for parse_seo, render nothing.
+            if tag == "p":
+                seo_lines.extend(docx.text.paragraph.Paragraph(element, document).text.split("\n"))
+            continue
         if tag == "tbl":
             rows = table_rows(element, document)
             placeholder = len(rows) <= 2 and not any(cell for row in rows for cell in row[1:])
@@ -289,7 +387,8 @@ def extract(path):
         if not raw:
             continue
         if STOP.match(raw.replace("**", "").strip()):
-            break
+            seo_lines = raw.replace("**", "").split("\n")
+            continue
         had_link_note = bool(LINK_NOTE.search(raw)) or "→" in raw
         text = clean(raw)
         # "Book Jeep Safari Online (create the booking-form link)" inside a sentence becomes a link.
@@ -362,6 +461,8 @@ def extract(path):
 
         level = None if info["list"] else heading_level(info, title is None)
         # The document's real H1 wins over a bold line typed above it.
+        if title and not blocks and text == title:
+            continue  # the H1 typed twice
         if title and not blocks and info["style"].startswith("Heading 1") and not kicker_from_h1:
             kicker.insert(0, title)
             title, kicker_from_h1 = text, True
@@ -416,7 +517,11 @@ def extract(path):
     # Headings left without content before a gallery or at the end are dropped.
     while blocks and blocks[-1]["t"] in ("h2", "h3"):
         blocks.pop()
-    return {"title": title, "kicker": kicker, "blocks": blocks}
+    page = {"title": title, "kicker": kicker, "blocks": blocks}
+    seo = parse_seo(seo_lines or [])
+    if seo:
+        page["seo"] = seo
+    return page
 
 
 def main():
@@ -426,8 +531,9 @@ def main():
             pages[key] = {slug: extract(SOURCE / rel) for slug, rel in value.items()}
         else:
             pages[key] = extract(SOURCE / value)
-    OUT.write_text(json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8")
     count = sum(len(p["blocks"]) for v in pages.values() for p in (v.values() if "blocks" not in v else [v]))
+    pages["navigation"] = extract_structure(SOURCE / STRUCTURE)
+    OUT.write_text(json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"wrote {OUT} ({count} blocks)")
 
 
