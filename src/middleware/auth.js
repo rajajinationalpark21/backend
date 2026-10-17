@@ -3,6 +3,7 @@ import { env } from "../config/env.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Admin } from "../models/Admin.js";
+import { isOwner } from "../services/ownership.js";
 
 export function signToken(admin) {
   return jwt.sign({ role: admin.role, email: admin.email }, env.jwtSecret, {
@@ -49,5 +50,13 @@ export const requireAdmin = asyncHandler(async (req, res, next) => {
   }
 
   req.admin = admin;
+  next();
+});
+
+/** After `requireAdmin`: only the panel owner may continue (adding or removing admins). */
+export const requireOwner = asyncHandler(async (req, res, next) => {
+  if (!(await isOwner(req.admin))) {
+    throw new AppError("Only the panel owner can manage admin accounts", 403);
+  }
   next();
 });

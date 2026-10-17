@@ -2,11 +2,21 @@ import { Contact } from "../models/Contact.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { getEmail, getIdFromAliases, getString } from "../utils/validation.js";
+import { isHoneypotFilled, logTrappedSubmission } from "../utils/spam.js";
+import { recordAudit } from "../services/audit.js";
 
 const INQUIRY_ID_ALIASES = ["inquiryId", "contactId", "id", "_id"];
 
 /** Public endpoint behind the Contact page form. */
 export const submitInquiry = asyncHandler(async (req, res) => {
+  if (isHoneypotFilled(req.body)) {
+    logTrappedSubmission(req, "contact");
+    return res.status(201).json({
+      success: true,
+      message: "Thank you for reaching out. The safari team will get back to you shortly.",
+    });
+  }
+
   const inquiry = await Contact.create({
     name: getString(req.body, "name", { required: true, max: 120 }),
     email: getEmail(req.body, "email"),
@@ -32,6 +42,7 @@ export const deleteInquiry = asyncHandler(async (req, res) => {
   const inquiry = await Contact.findByIdAndDelete(id);
 
   if (!inquiry) throw new AppError("Inquiry not found", 404);
+  await recordAudit(req, "inquiry.delete", inquiry.email || id, { name: inquiry.name });
 
   res.json({ success: true, message: "Inquiry deleted" });
 });

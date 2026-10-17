@@ -14,7 +14,8 @@ const adminSchema = new Schema(
       maxlength: 160,
     },
     passwordHash: { type: String, required: true, select: false },
-    role: { type: String, enum: ["admin"], default: "admin" },
+    // "owner" manages the other admin accounts; see services/ownership.js.
+    role: { type: String, enum: ["owner", "admin"], default: "admin" },
     lastLoginAt: { type: Date },
     passwordChangedAt: { type: Date },
   },

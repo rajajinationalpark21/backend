@@ -3,6 +3,7 @@ import { FOLDERS, destroyImage, uploadImage } from "../config/cloudinary.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { getString } from "../utils/validation.js";
+import { recordAudit } from "../services/audit.js";
 
 /**
  * The admin panel sends section content as JSON, but the home tab also lets the
@@ -97,6 +98,29 @@ function assertImagesAreUrls(section, payload) {
   }
 }
 
+/**
+ * Cloudinary ids (`heroBannerPublicId`, a zone's `heroImagePublicId`, …) decide
+ * which stored image is deleted when a photo is replaced, so they are only ever
+ * set by the server. Whatever the client sends for them is replaced with the
+ * stored value at the same place (or dropped when there is none).
+ */
+function keepServerPublicIds(incoming, current) {
+  if (Array.isArray(incoming)) {
+    return incoming.map((item, index) => keepServerPublicIds(item, Array.isArray(current) ? current[index] : undefined));
+  }
+  if (!incoming || typeof incoming !== "object") return incoming;
+  const out = {};
+  for (const [key, value] of Object.entries(incoming)) {
+    if (/PublicId$/.test(key)) {
+      const stored = current && typeof current === "object" ? current[key] : undefined;
+      if (typeof stored === "string") out[key] = stored;
+      continue;
+    }
+    out[key] = keepServerPublicIds(value, current && typeof current === "object" ? current[key] : undefined);
+  }
+  return out;
+}
+
 export const getContent = asyncHandler(async (req, res) => {
   const doc = await getContentDocument();
   res.json({ success: true, data: doc.toObject() });
@@ -127,11 +151,12 @@ const buildUpdateHandler = (fixedSection) =>
       );
     }
 
-    const incoming = parseSectionPayload(req.body.content);
-    assertImagesAreUrls(section, incoming);
+    const parsed = parseSectionPayload(req.body.content);
+    assertImagesAreUrls(section, parsed);
 
     const doc = await getContentDocument();
     const current = doc[section]?.toObject() ?? {};
+    const incoming = keepServerPublicIds(parsed, current);
     const previousBannerPublicId = current.heroBannerPublicId;
 
     const heroFile = req.files?.heroBanner?.[0];
@@ -150,6 +175,7 @@ const buildUpdateHandler = (fixedSection) =>
     if (previousBannerPublicId && previousBannerPublicId !== doc[section].heroBannerPublicId) {
       await destroyImage(previousBannerPublicId);
     }
+    await recordAudit(req, "content.update", section, { fields: Object.keys(incoming) });
 
     res.json({
       success: true,

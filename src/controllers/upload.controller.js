@@ -1,6 +1,7 @@
 import { FOLDERS, uploadImage } from "../config/cloudinary.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { recordAudit } from "../services/audit.js";
 
 /**
  * Hosts a single image and returns its URL. Used for content fields that are not
@@ -12,6 +13,7 @@ export const uploadSingleImage = asyncHandler(async (req, res) => {
   }
 
   const image = await uploadImage(req.file, FOLDERS.content);
+  await recordAudit(req, "image.upload", image.publicId);
 
   res.status(201).json({ success: true, message: "Image uploaded", image });
 });

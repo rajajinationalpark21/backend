@@ -4,19 +4,12 @@ import { FOLDERS, destroyImage, uploadImage } from "../config/cloudinary.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { getIdFromAliases, getString } from "../utils/validation.js";
+import { slugify } from "../utils/slugify.js";
+import { recordAudit } from "../services/audit.js";
+
+export { slugify };
 
 const BLOG_ID_ALIASES = ["blogId", "id", "_id"];
-
-export function slugify(text) {
-  if (!text) return "";
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
 
 export const listBlogs = asyncHandler(async (req, res) => {
   const rawBlogs = await Blog.find().sort({ createdAt: -1 }).lean();
@@ -36,16 +29,18 @@ export const getBlog = asyncHandler(async (req, res) => {
     blog = await Blog.findById(id).lean();
   }
 
-  if (!blog) {
-    blog = await Blog.findOne({ slug: id.toLowerCase() }).lean();
+  const targetSlug = slugify(id);
+  if (!blog && targetSlug) {
+    blog = await Blog.findOne({ slug: targetSlug }).lean();
   }
 
-  if (!blog) {
-    const targetSlug = slugify(id);
-    const allBlogs = await Blog.find().lean();
-    blog = allBlogs.find(
-      (b) => b.slug === targetSlug || slugify(b.title) === targetSlug
-    );
+  // Posts saved before slugs were stored: only those few are checked by title.
+  if (!blog && targetSlug) {
+    const unslugged = await Blog.find({ $or: [{ slug: { $exists: false } }, { slug: null }, { slug: "" }] })
+      .select("_id title")
+      .lean();
+    const match = unslugged.find((b) => slugify(b.title) === targetSlug);
+    if (match) blog = await Blog.findById(match._id).lean();
   }
 
   if (!blog) throw new AppError("Blog post not found", 404);
@@ -63,7 +58,8 @@ export const createBlog = asyncHandler(async (req, res) => {
   const title = getString(req.body, "title", { required: true, max: 200 });
   const fields = {
     title,
-    slug: req.body.slug ? slugify(req.body.slug) : slugify(title),
+    // Made unique by the model when it is saved.
+    slug: slugify(req.body.slug || title),
     category: getString(req.body, "category", { max: 60, fallback: "Uncategorized" }),
     summary: getString(req.body, "summary", { max: 500 }),
     content: getString(req.body, "content", { required: true, max: 200_000 }),
@@ -78,6 +74,7 @@ export const createBlog = asyncHandler(async (req, res) => {
   }
 
   const blog = await Blog.create(fields);
+  await recordAudit(req, "blog.create", blog.title);
 
   res.status(201).json({ success: true, message: "Blog post created", blog });
 });
@@ -125,6 +122,7 @@ export const updateBlog = asyncHandler(async (req, res) => {
     await blog.save();
   }
 
+  await recordAudit(req, "blog.update", blog.title);
   res.json({ success: true, message: "Blog post updated", blog });
 });
 
@@ -136,6 +134,7 @@ export const deleteBlog = asyncHandler(async (req, res) => {
   if (!blog) throw new AppError("Blog post not found", 404);
 
   await destroyImage(blog.imagePublicId);
+  await recordAudit(req, "blog.delete", blog.title);
 
   res.json({ success: true, message: "Blog post deleted" });
 });

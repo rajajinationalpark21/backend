@@ -97,6 +97,11 @@ export async function uploadImage(file, folder, { publicId, artwork = false } = 
  */
 export async function destroyImage(publicId) {
   if (!publicId || !isCloudinaryConfigured) return;
+  // Only images this site uploaded (under its own folder) are ever deleted.
+  if (!String(publicId).startsWith(`${env.cloudinary.folder}/`)) {
+    console.warn(`[cloudinary] Refusing to delete ${publicId}: outside ${env.cloudinary.folder}/`);
+    return;
+  }
   try {
     await cloudinary.uploader.destroy(publicId);
   } catch (error) {

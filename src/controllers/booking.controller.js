@@ -1,12 +1,25 @@
 import { Booking } from "../models/Booking.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { getString } from "../utils/validation.js";
+import { getEmail, getString } from "../utils/validation.js";
+import { isHoneypotFilled, logTrappedSubmission } from "../utils/spam.js";
+import { recordAudit } from "../services/audit.js";
+
+const newRefNumber = () => `RTR-${Date.now().toString().slice(-6)}`;
 
 /** Public endpoint — visitor submits a safari booking inquiry. */
 export const submitBooking = asyncHandler(async (req, res) => {
+  if (isHoneypotFilled(req.body)) {
+    logTrappedSubmission(req, "booking");
+    return res.status(201).json({
+      success: true,
+      message: "Booking inquiry saved. Our team will contact you shortly.",
+      booking: { refNumber: newRefNumber() },
+    });
+  }
+
   const name = getString(req.body, "name", { required: true, max: 120 });
-  const email = getString(req.body, "email", { max: 160 });
+  const email = getEmail(req.body, "email", { required: false });
   let phone = getString(req.body, "phone", { required: true, max: 30 });
   phone = phone.replace(/\D/g, "");
   if (phone.length !== 10) {
@@ -21,7 +34,7 @@ export const submitBooking = asyncHandler(async (req, res) => {
   if (isNaN(guests) || guests < 1) guests = 2;
   if (guests > 50) guests = 50;
 
-  const refNumber = `RTR-${Date.now().toString().slice(-6)}`;
+  const refNumber = newRefNumber();
 
   const booking = await Booking.create({
     name,
@@ -64,6 +77,7 @@ export const updateBooking = asyncHandler(async (req, res) => {
 
   const booking = await Booking.findByIdAndUpdate(id, { status }, { new: true });
   if (!booking) throw new AppError("Booking not found", 404);
+  await recordAudit(req, "booking.update", booking.refNumber || id, { status });
 
   res.json({ success: true, message: "Booking updated", booking });
 });
@@ -73,6 +87,7 @@ export const deleteBooking = asyncHandler(async (req, res) => {
   const id = getString(req.body, "bookingId", { required: true });
   const booking = await Booking.findByIdAndDelete(id);
   if (!booking) throw new AppError("Booking not found", 404);
+  await recordAudit(req, "booking.delete", booking.refNumber || id, { name: booking.name });
 
   res.json({ success: true, message: "Booking deleted" });
 });

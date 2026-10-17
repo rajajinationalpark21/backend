@@ -1,9 +1,12 @@
 import bcrypt from "bcryptjs";
 import { Admin } from "../models/Admin.js";
+import { AuditLog } from "../models/AuditLog.js";
 import { signToken } from "../middleware/auth.js";
+import { recordAudit } from "../services/audit.js";
+import { findOwner, isOwner } from "../services/ownership.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { getEmail, getString } from "../utils/validation.js";
+import { getEmail, getObjectId, getString } from "../utils/validation.js";
 
 // Compared against when the email is unknown so response timing does not reveal
 // which addresses are registered.
@@ -34,8 +37,13 @@ export const login = asyncHandler(async (req, res) => {
     success: true,
     message: "Signed in successfully",
     token: signToken(admin),
-    admin: admin.toPublicJSON(),
+    admin: { ...admin.toPublicJSON(), isOwner: await isOwner(admin) },
   });
+});
+
+/** The signed-in admin, so the panel knows whether to show owner-only tools. */
+export const getMe = asyncHandler(async (req, res) => {
+  res.json({ success: true, admin: { ...req.admin.toPublicJSON(), isOwner: await isOwner(req.admin) } });
 });
 
 /**
@@ -61,14 +69,19 @@ export const updateProfile = asyncHandler(async (req, res) => {
     runValidators: true,
   });
 
+  await recordAudit(req, "admin.profile", admin.email, { fields: Object.keys(updates) });
   res.json({ success: true, message: "Profile updated", admin: admin.toPublicJSON() });
 });
 
 /** List all admin users (no password hashes). */
 export const listUsers = asyncHandler(async (req, res) => {
   const admins = await Admin.find().sort({ createdAt: -1 }).lean();
-  const safe = admins.map(({ passwordHash, ...rest }) => rest);
-  res.json({ success: true, count: safe.length, admins: safe });
+  const owner = await findOwner();
+  const safe = admins.map(({ passwordHash, ...rest }) => ({
+    ...rest,
+    isOwner: Boolean(owner) && owner._id.equals(rest._id),
+  }));
+  res.json({ success: true, count: safe.length, admins: safe, canManage: await isOwner(req.admin) });
 });
 
 /** Create a new admin user. */
@@ -88,6 +101,7 @@ export const createUser = asyncHandler(async (req, res) => {
 
   const passwordHash = await bcrypt.hash(password, 10);
   const admin = await Admin.create({ name, email, passwordHash });
+  await recordAudit(req, "admin.create", email);
 
   res.status(201).json({
     success: true,
@@ -103,10 +117,39 @@ export const deleteUser = asyncHandler(async (req, res) => {
     throw new AppError("You cannot delete your own account", 400);
   }
 
-  const admin = await Admin.findByIdAndDelete(id);
-  if (!admin) throw new AppError("Admin user not found", 404);
+  const target = await Admin.findById(id);
+  if (!target) throw new AppError("Admin user not found", 404);
+  if (await isOwner(target)) {
+    throw new AppError("The owner account cannot be deleted. Transfer ownership first.", 400);
+  }
+
+  await target.deleteOne();
+  await recordAudit(req, "admin.delete", target.email);
 
   res.json({ success: true, message: "Admin user deleted" });
+});
+
+/** The owner hands the owner role to another admin and becomes a regular admin. */
+export const transferOwnership = asyncHandler(async (req, res) => {
+  const id = getObjectId(req.body, "userId");
+  if (id === req.admin._id.toString()) {
+    throw new AppError("You already own the panel", 400);
+  }
+  const target = await Admin.findById(id);
+  if (!target) throw new AppError("Admin user not found", 404);
+
+  await Admin.updateMany({ role: "owner" }, { $set: { role: "admin" } });
+  await Admin.updateOne({ _id: target._id }, { $set: { role: "owner" } });
+  await recordAudit(req, "admin.transfer-ownership", target.email);
+
+  res.json({ success: true, message: `${target.email} now owns the admin panel` });
+});
+
+/** Recent admin actions, newest first (owner only). */
+export const listAuditLog = asyncHandler(async (req, res) => {
+  const limit = Math.min(Math.max(Number(req.query.limit) || 100, 1), 500);
+  const entries = await AuditLog.find().sort({ createdAt: -1 }).limit(limit).lean();
+  res.json({ success: true, count: entries.length, entries });
 });
 
 export const changePassword = asyncHandler(async (req, res) => {
@@ -131,6 +174,7 @@ export const changePassword = asyncHandler(async (req, res) => {
   admin.passwordHash = await bcrypt.hash(newPassword, 10);
   admin.passwordChangedAt = new Date();
   await admin.save();
+  await recordAudit(req, "admin.password", admin.email);
 
   res.json({
     success: true,

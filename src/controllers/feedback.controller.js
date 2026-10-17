@@ -2,11 +2,21 @@ import { Feedback } from "../models/Feedback.js";
 import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { getString, getIdFromAliases } from "../utils/validation.js";
+import { isHoneypotFilled, logTrappedSubmission } from "../utils/spam.js";
+import { recordAudit } from "../services/audit.js";
 
 const FEEDBACK_ID_ALIASES = ["feedbackId", "id", "_id"];
 
 /** Public endpoint to submit visitor feedback / reviews */
 export const submitFeedback = asyncHandler(async (req, res) => {
+  if (isHoneypotFilled(req.body)) {
+    logTrappedSubmission(req, "feedback");
+    return res.status(201).json({
+      success: true,
+      message: "Thank you for sharing your experience! Your review will appear after moderator approval.",
+    });
+  }
+
   const name = getString(req.body, "name", { required: true, max: 120 });
   const comment = getString(req.body, "comment", { required: true, max: 2000 });
   const zone = getString(req.body, "zone", { max: 100, fallback: "Chilla Range" });
@@ -100,6 +110,7 @@ export const updateFeedback = asyncHandler(async (req, res) => {
   });
 
   if (!feedback) throw new AppError("Feedback not found", 404);
+  await recordAudit(req, "feedback.update", feedback.name, { fields: Object.keys(updates) });
 
   res.json({
     success: true,
@@ -114,6 +125,7 @@ export const deleteFeedback = asyncHandler(async (req, res) => {
   const feedback = await Feedback.findByIdAndDelete(id);
 
   if (!feedback) throw new AppError("Feedback not found", 404);
+  await recordAudit(req, "feedback.delete", feedback.name);
 
   res.json({ success: true, message: "Feedback deleted successfully" });
 });
