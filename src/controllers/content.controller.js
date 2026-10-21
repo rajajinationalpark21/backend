@@ -48,10 +48,23 @@ const IMAGE_FIELD_READERS = {
   ],
   tickets: (payload) => [payload.heroBanner],
   parkRules: (payload) => [payload.heroBanner],
-  stay: (payload) => [payload.heroBanner],
+  stay: (payload) => [
+    payload.heroBanner,
+    payload.ctaBand?.bgImage,
+    payload.wildBrook?.mainImage,
+    payload.wildBrook?.leafImage,
+    payload.wildBrook?.sunsetImage,
+  ],
   faqs: (payload) => [payload.heroBanner],
-  activities: (payload) => [payload.heroBanner],
-  rafting: (payload) => [payload.heroBanner],
+  activities: (payload) => [
+    payload.heroBanner,
+    payload.ctaBand?.bgImage,
+    ...(Array.isArray(payload.items) ? payload.items.map((item) => item?.image) : []),
+  ],
+  rafting: (payload) => [
+    payload.heroBanner,
+    ...(Array.isArray(payload.stretches) ? payload.stretches.map((stretch) => stretch?.image) : []),
+  ],
   fauna: (payload) => [payload.heroBanner, payload.hubHeroBanner],
   birds: (payload) => [
     payload.heroBanner,

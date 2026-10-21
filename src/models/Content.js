@@ -9,7 +9,26 @@ const { Schema } = mongoose;
  * database, while every declared field always resolves to a value the public
  * site can render without null checks.
  */
-const text = (max = 2000) => ({ type: String, trim: true, maxlength: max, default: "" });
+const text = (max = 2000, fallback = "") => ({ type: String, trim: true, maxlength: max, default: fallback });
+
+/**
+ * A page's closing call-to-action band. `defaults` is the wording the site used
+ * before the band became editable, so an untouched page reads the same.
+ */
+const ctaBand = (defaults = {}) => ({
+  type: new Schema(
+    {
+      title: text(200, defaults.title),
+      subtitle: text(600, defaults.subtitle),
+      primaryText: text(80, defaults.primaryText),
+      secondaryText: text(80, defaults.secondaryText),
+      secondaryLink: text(200, defaults.secondaryLink),
+      bgImage: text(600),
+    },
+    { _id: false }
+  ),
+  default: () => ({}),
+});
 
 // A client page document, as ordered blocks ({ t: "h2" | "p" | "ul" | "table" | ... })
 // produced by tools/extract_client_docs.py and rendered by the site's DocContent.
@@ -646,9 +665,23 @@ const staySectionSchema = new Schema(
         mainImage: text(600),
         leafImage: text(600),
         sunsetImage: text(600),
+        mainImageAlt: text(300, "Wild Brook Retreat valley stream"),
+        leafImageAlt: text(300, "Native Rajaji forest foliage"),
+        sunsetImageAlt: text(300, "Spotted deer in Gohri meadow"),
+        buttonText: text(80, "Inquire for Wild Brook Booking"),
       },
       { _id: false }
     ),
+    frhEyebrow: text(120, "Colonial Heritage Forest Lodges"),
+    frhTitle: text(200, "Forest Rest Houses (FRH) of Rajaji"),
+    frhIntro: text(
+      1000,
+      "Managed directly by the Uttarakhand Forest Department, these historic colonial-era rest houses offer rustic charm, prime wildlife proximity, and complete seclusion."
+    ),
+    frhColumns: {
+      type: [text(80)],
+      default: () => ["Forest Rest House", "Suites Available", "Current Status", "Entry Gate Access", "Setting & Atmosphere"],
+    },
     forestRestHouses: { type: [forestRestHouseSchema], default: [] },
     frhBookingInfo: new Schema(
       {
@@ -657,9 +690,18 @@ const staySectionSchema = new Schema(
         phone: text(40),
         fax: text(40),
         bookingRule: text(500),
+        title: text(200, "How to Book Forest Rest Houses"),
+        buttonText: text(80, "Safari & Stay Assistance"),
       },
       { _id: false }
     ),
+    ctaBand: ctaBand({
+      title: "Experience a Night Inside the Sanctuary?",
+      subtitle: "Wake up to the sounds of the jungle. Book official Forest Rest Houses or nearby eco-resorts combined with morning gypsy safari permits.",
+      primaryText: "Plan Safari & Stay",
+      secondaryText: "View Safari Zones",
+      secondaryLink: "/zones",
+    }),
   },
   { _id: false }
 );
@@ -778,6 +820,14 @@ const activitiesSectionSchema = new Schema(
     heroBannerPublicId: text(300),
     heroImages: { type: [text(600)], default: [] },
     items: { type: [activityDetailSchema], default: [] },
+    cardButtonText: text(80, "Book Now"),
+    ctaBand: ctaBand({
+      title: "Ready to Plan Your Jungle Expedition?",
+      subtitle: "From sunrise birding excursions to high-adrenaline river rafting and core zone jeep safaris, book your slots with registered government naturalists.",
+      primaryText: "Book Safari Activity",
+      secondaryText: "View Safari Zones",
+      secondaryLink: "/zones",
+    }),
   },
   { _id: false }
 );
@@ -806,7 +856,15 @@ const raftingSectionSchema = new Schema(
     heroBannerPublicId: text(300),
     heroImages: { type: [text(600)], default: [] },
     overview: text(3000),
+    stretchesEyebrow: text(120, "RIVER EXPEDITION CIRCUITS"),
+    stretchesTitle: text(200, "Available Rafting Stretches"),
+    stretchesIntro: text(
+      600,
+      "All runs include certified rescue kayakers, international safety helmets, lifejackets, and professional instruction."
+    ),
+    stretchButtonText: text(80, "Book This Stretch"),
     stretches: { type: [rapidStretchSchema], default: [] },
+    safetyTitle: text(200, "Rafting Safety Protocols"),
     safetyGuidelines: { type: [text(500)], default: [] },
   },
   { _id: false }
