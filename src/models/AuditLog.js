@@ -14,6 +14,7 @@ const auditLogSchema = new Schema(
     target: { type: String, trim: true, maxlength: 200, default: "" },
     detail: { type: Schema.Types.Mixed, default: {} },
     ip: { type: String, trim: true, maxlength: 80, default: "" },
+    userAgent: { type: String, trim: true, maxlength: 300, default: "" },
   },
   { timestamps: { createdAt: true, updatedAt: false } }
 );

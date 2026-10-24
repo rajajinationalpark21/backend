@@ -27,11 +27,14 @@ export const login = asyncHandler(async (req, res) => {
   const passwordMatches = await bcrypt.compare(password, admin?.passwordHash ?? DECOY_HASH);
 
   if (!admin || !passwordMatches) {
+    // Kept for the owner's sign-in history; the password itself is never stored.
+    await recordAudit(req, "admin.login-failed", email, {}, admin || { email });
     throw new AppError("Incorrect email or password", 401);
   }
 
   admin.lastLoginAt = new Date();
   await admin.save();
+  await recordAudit(req, "admin.login", admin.email, {}, admin);
 
   res.json({
     success: true,
@@ -148,7 +151,10 @@ export const transferOwnership = asyncHandler(async (req, res) => {
 /** Recent admin actions, newest first (owner only). */
 export const listAuditLog = asyncHandler(async (req, res) => {
   const limit = Math.min(Math.max(Number(req.query.limit) || 100, 1), 500);
-  const entries = await AuditLog.find().sort({ createdAt: -1 }).limit(limit).lean();
+  // ?kind=signins lists sign-in attempts only; ?kind=changes everything else.
+  const signIns = { action: { $in: ["admin.login", "admin.login-failed"] } };
+  const filter = req.query.kind === "signins" ? signIns : req.query.kind === "changes" ? { action: { $nin: signIns.action.$in } } : {};
+  const entries = await AuditLog.find(filter).sort({ createdAt: -1 }).limit(limit).lean();
   res.json({ success: true, count: entries.length, entries });
 });
 

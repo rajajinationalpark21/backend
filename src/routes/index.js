@@ -9,6 +9,7 @@ import settingsRoutes from "./settings.routes.js";
 import uploadRoutes from "./upload.routes.js";
 import feedbackRoutes from "./feedback.routes.js";
 import bookingRoutes from "./booking.routes.js";
+import visitRoutes from "./visit.routes.js";
 
 const DB_STATES = ["disconnected", "connected", "connecting", "disconnecting"];
 
@@ -53,3 +54,4 @@ apiRouter.use("/uploads", uploadRoutes);
 apiRouter.use("/upload", uploadRoutes);
 apiRouter.use("/feedback", feedbackRoutes);
 apiRouter.use("/booking", bookingRoutes);
+apiRouter.use("/visits", visitRoutes);

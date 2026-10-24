@@ -228,6 +228,7 @@ const settingsSectionSchema = new Schema(
         twitter: text(300),
         youtube: text(300),
         linkedin: text(300),
+        telegram: text(300),
       },
       { _id: false }
     ),
