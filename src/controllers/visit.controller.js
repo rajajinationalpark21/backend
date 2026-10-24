@@ -42,6 +42,9 @@ const deviceOf = (userAgent) =>
  * text/plain (no CORS preflight), so the body may arrive as a string.
  */
 export const recordVisit = asyncHandler(async (req, res) => {
+  // The site is on another origin; without this the browser logs every beacon
+  // as a blocked response (helmet's default is same-origin). The reply is empty.
+  res.set("Cross-Origin-Resource-Policy", "cross-origin");
   const userAgent = String(req.get("user-agent") || "");
   let body = req.body;
   if (typeof body === "string") {
