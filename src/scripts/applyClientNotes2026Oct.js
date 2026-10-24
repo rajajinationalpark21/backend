@@ -5,6 +5,7 @@ import { getContentDocument } from "../models/Content.js";
  * The client's handwritten corrections of October 2026 that are content, not code:
  *   - Home: "15th June" in bold in the opening-dates line
  *   - Home: Sal's botanical name (Shorea robusta) in italics
+ *   - About (where Home's "Read the full story" leads): the same two marks
  *   - Tickets: "Butterflies and Insects of Rajaji" in the Explore Rajaji links
  *   - SEO: search keywords for the zone pages that have none (filled only when empty)
  *
@@ -47,6 +48,26 @@ async function run() {
     }
   }
 
+  const aboutParagraphs = [...(content.about.overviewParagraphs || [])];
+  const aboutBlocks = [...(content.about.docBlocks || [])];
+  for (const [find, replace] of [
+    ["15th June", "**15th June**"],
+    ["Sal (Shorea robusta)", "Sal (*Shorea robusta*)"],
+  ]) {
+    const change = markInList(aboutParagraphs, find, replace);
+    if (change) {
+      aboutParagraphs[change.index] = change.after;
+      changes.push({ field: `about.overviewParagraphs[${change.index}]`, before: change.before, after: change.after });
+    }
+  }
+  aboutBlocks.forEach((block, index) => {
+    if (block?.t === "p" && typeof block.text === "string" && block.text.includes("Sal (Shorea robusta)")) {
+      const after = block.text.replace("Sal (Shorea robusta)", "Sal (*Shorea robusta*)");
+      aboutBlocks[index] = { ...block, text: after };
+      changes.push({ field: `about.docBlocks[${index}]`, before: block.text, after });
+    }
+  });
+
   const blocks = [...(content.tickets.docBlocks || [])];
   const heading = blocks.findIndex((block) => block?.t === "h3" && /^Explore Rajaji$/i.test(block.text || ""));
   const links = heading >= 0 ? blocks[heading + 1] : null;
@@ -79,6 +100,9 @@ async function run() {
 
   if (!DRY_RUN && changes.length) {
     content.home.aboutDetails = details;
+    content.about.overviewParagraphs = aboutParagraphs;
+    content.about.docBlocks = aboutBlocks;
+    content.markModified("about");
     content.tickets.docBlocks = blocks;
     content.markModified("home");
     content.markModified("tickets");

@@ -75,6 +75,7 @@ export const recordVisit = asyncHandler(async (req, res) => {
     ...sourceOf(typeof body?.referrer === "string" ? body.referrer : "", siteHost),
     device: deviceOf(userAgent),
     visitor,
+    firstVisit: body?.firstVisit === true,
     day,
   });
   res.status(204).end();
@@ -90,13 +91,27 @@ export const visitSummary = asyncHandler(async (req, res) => {
   const [totals, byDay, topPages, sources, devices, bookingsByDay, contactsByDay] = await Promise.all([
     PageView.aggregate([
       { $match: match },
-      { $group: { _id: null, views: { $sum: 1 }, visitors: { $addToSet: "$visitor" } } },
-      { $project: { _id: 0, views: 1, visitors: { $size: "$visitors" } } },
+      {
+        $group: {
+          _id: null,
+          views: { $sum: 1 },
+          visitors: { $addToSet: "$visitor" },
+          newVisitors: { $sum: { $cond: ["$firstVisit", 1, 0] } },
+        },
+      },
+      { $project: { _id: 0, views: 1, newVisitors: 1, visitors: { $size: "$visitors" } } },
     ]),
     PageView.aggregate([
       { $match: match },
-      { $group: { _id: "$day", views: { $sum: 1 }, visitors: { $addToSet: "$visitor" } } },
-      { $project: { _id: 0, day: "$_id", views: 1, visitors: { $size: "$visitors" } } },
+      {
+        $group: {
+          _id: "$day",
+          views: { $sum: 1 },
+          visitors: { $addToSet: "$visitor" },
+          newVisitors: { $sum: { $cond: ["$firstVisit", 1, 0] } },
+        },
+      },
+      { $project: { _id: 0, day: "$_id", views: 1, newVisitors: 1, visitors: { $size: "$visitors" } } },
     ]),
     PageView.aggregate([
       { $match: match },
@@ -137,6 +152,7 @@ export const visitSummary = asyncHandler(async (req, res) => {
       day,
       views: views.get(day)?.views || 0,
       visitors: views.get(day)?.visitors || 0,
+      newVisitors: views.get(day)?.newVisitors || 0,
       enquiries: (bookings.get(day) || 0) + (contacts.get(day) || 0),
     };
   });
@@ -147,6 +163,8 @@ export const visitSummary = asyncHandler(async (req, res) => {
     totals: {
       views: totals[0]?.views || 0,
       visitors: totals[0]?.visitors || 0,
+      // First visit ever; the rest of the day's visitors had been before.
+      newVisitors: totals[0]?.newVisitors || 0,
       bookings: bookingsByDay.reduce((sum, row) => sum + row.count, 0),
       contacts: contactsByDay.reduce((sum, row) => sum + row.count, 0),
     },

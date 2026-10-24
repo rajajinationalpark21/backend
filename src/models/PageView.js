@@ -14,6 +14,8 @@ const pageViewSchema = new Schema(
     referrerHost: { type: String, trim: true, maxlength: 120, default: "" },
     device: { type: String, enum: ["mobile", "tablet", "desktop"], default: "desktop" },
     visitor: { type: String, maxlength: 64, default: "" },
+    // The browser's first page view ever on the site (it remembers that itself).
+    firstVisit: { type: Boolean, default: false },
     day: { type: String, maxlength: 10, required: true }, // YYYY-MM-DD, India time
   },
   { timestamps: { createdAt: true, updatedAt: false } }

@@ -5,13 +5,9 @@ const { Schema } = mongoose;
 const contactSchema = new Schema(
   {
     name: { type: String, required: [true, "name is required"], trim: true, maxlength: 120 },
-    email: {
-      type: String,
-      required: [true, "email is required"],
-      trim: true,
-      lowercase: true,
-      maxlength: 160,
-    },
+    // Optional: the safari desk replies by phone or WhatsApp; email is a bonus.
+    email: { type: String, trim: true, lowercase: true, maxlength: 160, default: "" },
+    // Required for new messages by the contact form (older ones may not have one).
     phone: { type: String, trim: true, maxlength: 30, default: "" },
     subject: { type: String, trim: true, maxlength: 160, default: "" },
     message: {

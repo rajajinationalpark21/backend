@@ -217,6 +217,8 @@ const settingsSectionSchema = new Schema(
         email: text(160),
         address: text(500),
         mapUrl: text(600),
+        // Google Maps → Share → Embed a map: the iframe code or just its src link.
+        mapEmbed: text(2000),
         drChaturbhuj: text(100),
       },
       { _id: false }

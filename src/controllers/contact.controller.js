@@ -17,10 +17,16 @@ export const submitInquiry = asyncHandler(async (req, res) => {
     });
   }
 
+  // The desk replies by phone or WhatsApp, so a phone number is needed; email is optional.
+  const phone = getString(req.body, "phone", { required: true, max: 30 });
+  if (phone.replace(/\D/g, "").length < 10) {
+    throw new AppError("Please enter a phone number with at least 10 digits.", 400);
+  }
+
   const inquiry = await Contact.create({
     name: getString(req.body, "name", { required: true, max: 120 }),
-    email: getEmail(req.body, "email"),
-    phone: getString(req.body, "phone", { max: 30 }),
+    email: getEmail(req.body, "email", { required: false }),
+    phone,
     subject: getString(req.body, "subject", { max: 160 }),
     message: getString(req.body, "message", { required: true, max: 4000 }),
   });
