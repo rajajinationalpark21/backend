@@ -8,6 +8,8 @@ const blogSchema = new Schema(
     title: { type: String, required: [true, "title is required"], trim: true, maxlength: 200 },
     category: { type: String, trim: true, maxlength: 60, default: "Uncategorized" },
     summary: { type: String, trim: true, maxlength: 500, default: "" },
+    // The title Google shows, when the headline is too long for search results.
+    seoTitle: { type: String, trim: true, maxlength: 70, default: "" },
     content: { type: String, required: [true, "content is required"] },
     quote: { type: String, trim: true, default: "" },
     quoteAuthor: { type: String, trim: true, default: "" },

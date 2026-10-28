@@ -62,6 +62,7 @@ export const createBlog = asyncHandler(async (req, res) => {
     slug: slugify(req.body.slug || title),
     category: getString(req.body, "category", { max: 60, fallback: "Uncategorized" }),
     summary: getString(req.body, "summary", { max: 500 }),
+    seoTitle: getString(req.body, "seoTitle", { max: 70 }),
     content: getString(req.body, "content", { required: true, max: 200_000 }),
     quote: getString(req.body, "quote", { max: 1000 }),
     quoteAuthor: getString(req.body, "quoteAuthor", { max: 150 }),
@@ -99,6 +100,9 @@ export const updateBlog = asyncHandler(async (req, res) => {
   }
   if (req.body.summary !== undefined) {
     blog.summary = getString(req.body, "summary", { max: 500 });
+  }
+  if (req.body.seoTitle !== undefined) {
+    blog.seoTitle = getString(req.body, "seoTitle", { max: 70 });
   }
   if (req.body.content !== undefined) {
     blog.content = getString(req.body, "content", { required: true, max: 200_000 });

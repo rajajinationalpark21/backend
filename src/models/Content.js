@@ -46,6 +46,8 @@ const pageFields = () => ({
   heroImageAlt: text(300),
   galleryTitle: text(200),
   galleryImages: { type: [text(600)], default: [] },
+  // One description per gallery photo, same order; an empty one gets a description made from the page.
+  galleryAlts: { type: [text(300)], default: [] },
 });
 
 /** Adds the page fields a section does not declare yet; existing paths are left as they are. */
@@ -98,6 +100,7 @@ const homeSectionSchema = new Schema(
     gallerySubtitle: text(300),
     // "Captured Moments" photos in display order, any number. None means stock images.
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
     featuredBlogs: { type: [{ type: String, trim: true }], default: [] },
   },
   { _id: false }
@@ -146,6 +149,7 @@ const aboutSectionSchema = new Schema(
     // section; a `gallery` block marks where the photo strip goes.
     docBlocks: docBlocks(),
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
   },
   { _id: false }
 );
@@ -173,6 +177,7 @@ const zoneItemSchema = new Schema(
     heroImages: { type: [text(600)], default: [] },
     // Zone page "Gallery" section, in display order.
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
     // The zone's page document; when present the page shows it in full.
     docTitle: text(300),
     docKicker: { type: [text(300)], default: [] },
@@ -329,6 +334,7 @@ const birdsSectionSchema = new Schema(
     watchingParagraphs: { type: [text(3000)], default: [] },
     notableSpecies: { type: [text(160)], default: [] },
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
     packagesTitle: text(200),
     packagesText: text(1000),
     packagesContactName: text(160),
@@ -385,6 +391,7 @@ const faunaSectionSchema = new Schema(
     docBlocks: docBlocks(),
     galleryTitle: text(200),
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
     overview: text(2000),
     primeAttractions: { type: [primeAttractionSchema], default: [] },
     herbivores: { type: [faunaItemSchema], default: [] },
@@ -434,6 +441,7 @@ const floraSectionSchema = new Schema(
     docBlocks: docBlocks(),
     galleryTitle: text(200),
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
   },
   { _id: false }
 );
@@ -462,6 +470,7 @@ const butterfliesSectionSchema = new Schema(
     docBlocks: docBlocks(),
     galleryTitle: text(200),
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
   },
   { _id: false }
 );
@@ -550,6 +559,7 @@ const ticketsSectionSchema = new Schema(
     docTitle: text(300),
     docBlocks: docBlocks(),
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
     timings: new Schema(
       {
         summer: text(300),
@@ -775,6 +785,7 @@ const reptilesSectionSchema = new Schema(
     docBlocks: docBlocks(),
     galleryTitle: text(200),
     galleryImages: { type: [text(600)], default: [] },
+    galleryAlts: { type: [text(300)], default: [] },
   },
   { _id: false }
 );
