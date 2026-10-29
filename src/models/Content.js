@@ -75,6 +75,10 @@ const homeSectionSchema = new Schema(
     timings: text(160),
     zones: text(160),
     rules: text(160),
+    // The small line under each card's text.
+    timingsNote: text(160),
+    zonesNote: text(160),
+    rulesNote: text(160),
     aboutTitle: text(200),
     aboutDescription: text(3000),
     // New editorial fields retain the legacy description for existing clients.
@@ -102,6 +106,9 @@ const homeSectionSchema = new Schema(
     galleryImages: { type: [text(600)], default: [] },
     galleryAlts: { type: [text(300)], default: [] },
     featuredBlogs: { type: [{ type: String, trim: true }], default: [] },
+    blogTitle: text(200),
+    reviewsTitle: text(200),
+    reviewsSubtitle: text(500),
   },
   { _id: false }
 );
