@@ -28,6 +28,8 @@ Use a **local or separate** MongoDB for development (`MONGODB_URI=mongodb://127.
 | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_FOLDER` | Image storage. Images are only ever deleted from under `CLOUDINARY_FOLDER/` |
 | `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` | First admin account, created by `npm run seed` |
 | `MAX_FILE_SIZE_MB`, `MAX_FILES_PER_REQUEST` | Upload limits |
+| `VERCEL_DEPLOY_HOOK_URL` | The website's Vercel deploy hook. When set, admin saves rebuild the site (see below) |
+| `PUBLIC_SITE_URL`, `INDEXNOW_KEY` | Site address and IndexNow key for change pings; the key must match `frontend/public/<key>.txt` |
 
 ## Scripts
 
@@ -76,6 +78,16 @@ Notes:
 - **Spam trap.** Public forms accept a hidden `website_hp` field. When it's filled, the request gets a normal success response but nothing is stored.
 - **Blog slugs.** Every post stores a unique `slug`, made from the title on save. Posts are fetched by id or slug.
 - **Cloudinary ids.** `*PublicId` fields are set only by the server. Values sent in content updates are ignored.
+
+## Website rebuilds after admin edits
+
+The website is a static build (prerendered pages, sitemap, cached CMS file), so admin edits reach crawlers only after a rebuild. `src/services/publish.js` handles this:
+
+- Saving content or a blog post schedules a rebuild through `VERCEL_DEPLOY_HOOK_URL`. Edits within 2 minutes of each other share one rebuild, and rebuilds are at least 10 minutes apart.
+- About 5 minutes after a rebuild starts, the changed page addresses are sent to IndexNow (Bing, Yandex and others).
+- Without the deploy hook nothing happens, so local development never triggers deploys. Failures are logged and never block a save.
+
+Tests: `npm test`.
 
 ## Deploy
 

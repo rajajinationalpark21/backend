@@ -6,6 +6,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { getIdFromAliases, getString } from "../utils/validation.js";
 import { slugify } from "../utils/slugify.js";
 import { recordAudit } from "../services/audit.js";
+import { blogPaths, schedulePublish } from "../services/publish.js";
 
 export { slugify };
 
@@ -76,6 +77,7 @@ export const createBlog = asyncHandler(async (req, res) => {
 
   const blog = await Blog.create(fields);
   await recordAudit(req, "blog.create", blog.title);
+  schedulePublish(blogPaths(blog.slug));
 
   res.status(201).json({ success: true, message: "Blog post created", blog });
 });
@@ -85,6 +87,7 @@ export const updateBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(id);
 
   if (!blog) throw new AppError("Blog post not found", 404);
+  const previousSlug = blog.slug;
 
   if (req.body.title !== undefined) {
     blog.title = getString(req.body, "title", { required: true, max: 200 });
@@ -127,6 +130,7 @@ export const updateBlog = asyncHandler(async (req, res) => {
   }
 
   await recordAudit(req, "blog.update", blog.title);
+  schedulePublish(blogPaths(blog.slug, previousSlug));
   res.json({ success: true, message: "Blog post updated", blog });
 });
 
@@ -139,6 +143,7 @@ export const deleteBlog = asyncHandler(async (req, res) => {
 
   await destroyImage(blog.imagePublicId);
   await recordAudit(req, "blog.delete", blog.title);
+  schedulePublish(blogPaths(blog.slug));
 
   res.json({ success: true, message: "Blog post deleted" });
 });

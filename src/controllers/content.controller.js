@@ -4,6 +4,7 @@ import { AppError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { getString } from "../utils/validation.js";
 import { recordAudit } from "../services/audit.js";
+import { schedulePublish, sectionPaths } from "../services/publish.js";
 
 /**
  * The admin panel sends section content as JSON, but the home tab also lets the
@@ -189,6 +190,7 @@ const buildUpdateHandler = (fixedSection) =>
       await destroyImage(previousBannerPublicId);
     }
     await recordAudit(req, "content.update", section, { fields: Object.keys(incoming) });
+    schedulePublish(sectionPaths(section, doc[section]?.toObject?.() ?? doc[section]));
 
     res.json({
       success: true,

@@ -59,6 +59,15 @@ export const env = {
     maxFileSizeBytes: maxFileSizeMb * 1024 * 1024,
     maxFilesPerRequest: Number(process.env.MAX_FILES_PER_REQUEST) || 12,
   },
+  // Keeping the public site in step with admin edits (src/services/publish.js).
+  publish: {
+    // Vercel deploy hook for the website project. Unset = no automatic rebuilds.
+    deployHookUrl: process.env.VERCEL_DEPLOY_HOOK_URL?.trim() || "",
+    siteUrl: (process.env.PUBLIC_SITE_URL?.trim() || "https://www.rajajiinationalpark.com").replace(/\/+$/, ""),
+    // IndexNow key. It is public by design: the website serves it at /<key>.txt
+    // (frontend/public) so search engines can confirm pings come from this site.
+    indexNowKey: process.env.INDEXNOW_KEY?.trim() || "1c99ddc6be1d26445865ad15f26ab268",
+  },
 };
 
 export const isCloudinaryConfigured = Boolean(
